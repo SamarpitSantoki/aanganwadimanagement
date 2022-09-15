@@ -1,4 +1,7 @@
-const app=import("express")();
+const { login } = require("./routes/login.route");
+
+const app=require("express")();
+
 const bcrypt=import("bcrypt");
 
 app.use('/login', login);
