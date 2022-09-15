@@ -1,10 +1,14 @@
 const { login } = require("./routes/login.route");
+const bodyParser=require('body-parser');
 
 const app=require("express")();
 
 const bcrypt=import("bcrypt");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-app.use('/login', login);
+
+app.use('/', login);
 
 //api for singup using bcrypt
 
