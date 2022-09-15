@@ -1,4 +1,5 @@
 const app=import("express")();
+const bcrypt=import("bcrypt");
 
 //api for singup using bcrypt
 app.post("/signup",async(req,res)=>{
