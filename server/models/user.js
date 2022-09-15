@@ -50,3 +50,7 @@ const userSchema = new Schema({
    require: true
   }
 });
+
+const User = mongoose.model("user", UserSchema);
+
+module.exports = User;
