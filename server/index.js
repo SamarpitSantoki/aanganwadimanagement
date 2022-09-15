@@ -1,38 +1,40 @@
 const app=import("express")();
 
-//api for singup
-app.post("/signup", async (req, res) => {
+//api for singup using bcrypt
+app.post("/signup",async(req,res)=>{
+    const {name,email,password}=req.body;
+    const hash=await bcrypt.hash(password,10);
+    const user=new User({
+        name,
+        email,
+        password:hash
+    });
+    await user.save();
+    res.send("user created");
+}
+
+//create api login using database
+app.post("/login", async (req, res) => {
     const { email, password } = req.body;
-    //check if user already exists
+    //check if user exists
     const user = await User.findOne({ email });
-    if (user) {
-        return res.status(400).json({ error: "User already exists" });
+    if (!user) {
+        return res.status(400).json({ error: "User does not exist" });
     }
-    //create new user
-    const newUser = new User({ email, password });
-    //save user
-    await newUser.save();
+    //check if password is correct
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+        return res.status(400).json({ error: "Password is incorrect" });
+    }
+    //create token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: 3600,
+    });
     //send response
-    res.status(200).json({ message: "User created" });
+    res.status(200).json({ token });
 });
 
 
-
-//create api login
-app.post("/login",(req,res)=>{
-    //get username and password from request
-    var {username, password} = req.body;
-
-    //check username and password
-    if(username=="admin" && password=="123456"){
-        //create token
-        var token=jwt.sign({username:username},"secret",{expiresIn:60*60});
-        //return token
-        res.json({token:token});
-    }else{
-        res.json({message:"login failed"});
-    }
-});
 
 
 app.listen(3000, () => {
