@@ -1,0 +1,38 @@
+.container {
+  
+  text-align: center;
+  height: 50px;
+  width:auto;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  background-color: #41444a;
+  min-height: auto;
+}
+
+.heading {
+    padding:10px;
+  margin: 0;
+  max-width: auto;
+  color: rgb(236, 187, 26);
+  font: size 2px;;
+  line-height: 0px;
+  /* font-weight: bold; */
+  letter-spacing: 1px;
+}
+
+.right {
+    /* align:right; */
+    align-self:auto;
+    display: flex;
+    justify-content: flex-end;
+    
+  width: auto;
+}
+
+.right button{
+    background-color: orange;
+    color: black;
+    font-weight:600;
+    margin:1ex;
+}
