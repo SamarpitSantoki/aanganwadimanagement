@@ -1,7 +1,7 @@
 import "../App.css";
 import Header from "../components/Header/Header";
 import Nav from "../components/Header/Nav";
-import Login from "../components/Login/Login";
+import Login from "../components/LoginForm/LoginForm";
 
 function HomePage() {
   //   const [count, setCount] = useState(0)
