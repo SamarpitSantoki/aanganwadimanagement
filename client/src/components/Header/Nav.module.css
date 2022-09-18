@@ -26,8 +26,14 @@
 }
 
 .right button {
-  background-color: orange;
-  color: black;
-  font-weight: 600;
-  margin: 1ex;
+    background-color: rgb(255, 165, 0);
+    padding-block: 2px;
+    padding-inline: 10px;
+    color: black;
+    font-weight: 600;
+    margin: 1ex;
+}
+
+.right button:hover {
+    background-color: rgb(255, 145, 0);
 }

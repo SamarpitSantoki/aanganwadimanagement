@@ -3,8 +3,10 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-
     /* console.log for css */
     /* outline: 1px solid lime; */
     
+}
+body{
+    background-color: whitesmoke;
 }
