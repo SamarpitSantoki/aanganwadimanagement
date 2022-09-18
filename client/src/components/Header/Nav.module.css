@@ -1,9 +1,9 @@
 .container {
-  
   text-align: center;
   height: 50px;
-  width:auto;
+  width: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 30px;
   background-color: #41444a;
@@ -11,28 +11,23 @@
 }
 
 .heading {
-    padding:10px;
+  padding: 10px;
   margin: 0;
-  max-width: auto;
   color: rgb(236, 187, 26);
-  font: size 2px;;
+  font: size 2px;
   line-height: 0px;
   /* font-weight: bold; */
   letter-spacing: 1px;
 }
 
 .right {
-    /* align:right; */
-    align-self:auto;
-    display: flex;
-    justify-content: flex-end;
-    
-  width: auto;
+  /* align:right; */
+  float: right;
 }
 
-.right button{
-    background-color: orange;
-    color: black;
-    font-weight:600;
-    margin:1ex;
+.right button {
+  background-color: orange;
+  color: black;
+  font-weight: 600;
+  margin: 1ex;
 }
