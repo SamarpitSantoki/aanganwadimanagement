@@ -1,6 +1,6 @@
 
 
-const login = async (req, res) => {
+module.exports.login = async (req, res) => {
   const { name, email, password } = req.body;
   // const hash=await bcrypt.hash(password,10);
   // const user=new User({
@@ -33,6 +33,6 @@ const login = async (req, res) => {
 //     res.status(200).json({ token });
 // };
 
-module.exports = {
-  login,
-};
+// module.exports = {
+//   login,
+// };
