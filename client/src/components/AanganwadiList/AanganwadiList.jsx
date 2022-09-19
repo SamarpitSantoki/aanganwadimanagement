@@ -9,43 +9,42 @@ import {
     Row,
     Table,
 } from "react-bootstrap";
-import { Toggle } from "rsuite";
+// import { Toggle } from "rsuite";
 import "../../App.css";
 import { FaPencilAlt,FaPlus,FaTrashAlt } from "react-icons/fa";
 
-const UserList
+const AanganwadiList
     = () => {
-        const defaultUsers = [
+        const defaultAanganwadis = [
             {
-                fName: "A",
-                lName: "Abc",
-                email: "abc@gmail.com",
+                manager: "A",
+                workers: "5",
                 sector: "Abc",
                 phoneNumber: "9999999999",
-                linkedAanganwadi: "A",
+                contactPerson: "A",
+                resourceNeeded: "1",
             },
             {
-                fName: "A",
-                lName: "Abc",
-                email: "abc@gmail.com",
+                manager: "A",
+                workers: "5",
                 sector: "Abc",
                 phoneNumber: "9999999999",
-                linkedAanganwadi: "A",
+                contactPerson: "A",
+                resourceNeeded: "1",
             },
         ];
 
-        const initCurrentUser = {
-            fName: "",
-            lName: "",
-            email: "",
+        const initCurrentAanganwadi = {
+            manager: "",
+            workers: "",
             sector: "",
             phoneNumber: "",
-            linkedAanganwadi: "",
-        };
-
-        const [users,setUsers] = useState(defaultUsers);
+            contactPerson: "",
+            resourceNeeded: "",
+        }
+        const [aanganwadis,setAanganwadis] = useState(defaultAanganwadis);
         const [show,setShow] = useState(false);
-        const [newUser,setNewUser] = useState(initCurrentUser);
+        const [newAanganwadi,setNewAanganwadi] = useState(initCurrentAanganwadi);
         // const [showCreateBtn,setShowCreateBtn] = useState(true);
         const [editing,setEdit] = useState(false);
         const [rates,setRates] = useState([1,2,3,4,5,6,7,8,9,10]);
@@ -56,40 +55,40 @@ const UserList
         const handleShow = () => {
             setShow(true);
             if(editing == false) {
-                setNewUser(initCurrentUser);
+                setNewAanganwadi(initCurrentAanganwadi);
             }
         };
 
-        const onFormSubmit = (newUser) => {
-            const id = users.length + 1;
-            setUsers([...users,{ ...newUser,id }]);
+        const onFormSubmit = (newAanganwadi) => {
+            const id = aanganwadis.length + 1;
+            setAanganwadis([...aanganwadis,{ ...newAanganwadi,id }]);
         };
 
-        const onEdit = (newUser) => {
+        const onEdit = (newAanganwadi) => {
             setEdit(true);
             if(editing == true) {
-                setNewUser({ ...newUser,newUser });
+                setNewAanganwadi({ ...newAanganwadi,newAanganwadi });
                 handleShow();
             }
 
         };
 
-        const onSubmit = (newUser) => {
+        const onSubmit = (newAanganwadi) => {
             if(editing === true) {
-                onUpdateUser(newUser);
+                onUpdateAanganwadi(newAanganwadi);
             } else {
-                onFormSubmit(newUser);
+                onFormSubmit(newAanganwadi);
             }
         };
 
-        const onUpdateUser = (newUser) => {
+        const onUpdateAanganwadi = (newAanganwadi) => {
             setEdit(false);
-            let id = newUser.id;
-            setUsers(users.map((i) => (i.id === id ? newUser : i)));
+            let id = newAanganwadi.id;
+            setAanganwadis(aanganwadis.map((i) => (i.id === id ? newAanganwadi : i)));
         };
 
-        const onDeleteUser = (currentUser) => {
-            setUsers(users.filter((i) => i.id !== currentUser.id));
+        const onDeleteAanganwadi = (currentAanganwadi) => {
+            setAanganwadis(aanganwadis.filter((i) => i.id !== currentAanganwadi.id));
         };
 
         return (
@@ -100,14 +99,14 @@ const UserList
                             <Card.Body>
                                 <div className="d-flex justify-content-between customCardBody">
                                     <div>
-                                        <Card.Title>User Data</Card.Title>
+                                        <Card.Title>Aanganwadi Data</Card.Title>
                                     </div>
                                     <div className="d-flex">
 
                                         <Button
                                             variant="maincolor"
                                             onClick={handleShow}
-                                            title="Add User"
+                                            title="Add Aanganwadi"
                                         >
                                             <FaPlus color="white" />
                                         </Button>
@@ -117,37 +116,39 @@ const UserList
                                 <Table striped bordered hover variant="light" className='m-2'>
                                     <thead>
                                         <tr>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Email</th>
+                                            <th>Manager</th>
+                                            <th>Workers</th>
                                             <th>Sector</th>
                                             <th>Phone</th>
-                                            <th>Aanganwadi</th>
+                                            <th>Contact Person</th>
+                                            <th>ResourceNeeded</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {users.length > 0 ? (
-                                            users.map((user,index) => (
+                                        {aanganwadis.length > 0 ? (
+                                            aanganwadis.map((aanganwadi,index) => (
                                                 <tr key={index}>
-                                                    <td>{user.fName}</td>
-                                                    <td>{user.lName}</td>
-                                                    <td>{user.email}</td>
-                                                    <td>{user.sector}</td>
-                                                    <td>{user.phoneNumber}</td>
-                                                    <td>{user.linkedAanganwadi}</td>
+                                                    <td>{aanganwadi.manager}</td>
+                                                    <td>{aanganwadi.workers}</td>
+                                                    <td>{aanganwadi.sector}</td>
+                                                    <td>{aanganwadi.phoneNumber}</td>
+                                                    <td>{aanganwadi.contactPerson}</td>
+                                                    <td>
+                                                        {aanganwadi.resourceNeeded}
+                                                    </td>
                                                     <td>
                                                         <Button
                                                             variant="maincolor"
-                                                            title="Edit user details"
-                                                            onClick={() => onEdit(user)}
+                                                            title="Edit aanganwadi details"
+                                                            onClick={() => onEdit(aanganwadi)}
                                                         >
                                                             <FaPencilAlt />
                                                         </Button>{" "}
                                                         <Button
                                                             variant="danger"
-                                                            title="Delete user"
-                                                            onClick={() => onDeleteUser(user)}
+                                                            title="Delete aanganwadi"
+                                                            onClick={() => onDeleteAanganwadi(aanganwadi)}
                                                         >
                                                             <FaTrashAlt />
                                                         </Button>
@@ -157,7 +158,7 @@ const UserList
                                         ) : (
                                             <tr>
                                                 <td colSpan={6} className="text-center">
-                                                    No users found.
+                                                    No aanganwadis found.
                                                 </td>
                                             </tr>
                                         )}
@@ -170,125 +171,91 @@ const UserList
                             <Form
                                 onSubmit={(e) => {
                                     e.preventDefault();
-                                    onSubmit(newUser);
+                                    onSubmit(newAanganwadi);
                                 }}
                             >
                                 <Modal.Header closeButton>
                                     {
                                         editing == true
-                                            ? <Modal.Title>Edit User</Modal.Title>
-                                            : <Modal.Title>Add User</Modal.Title>
+                                            ? <Modal.Title>Edit Aanganwadi</Modal.Title>
+                                            : <Modal.Title>Add Aanganwadi</Modal.Title>
                                     }
                                 </Modal.Header>
                                 <Modal.Body>
-                                    <Form.Group className="mb-3" controlId="formBasicfName">
-                                        <Form.Label>First Name</Form.Label>
+                                    <Form.Group className="mb-3" controlId="formBasicfManager">
+                                        <Form.Label>Manager</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            value={newUser.fName}
+                                            value={newAanganwadi.manager}
                                             required
                                             onChange={(e) =>
-                                                setNewUser({ ...newUser,fName: e.target.value })
+                                                setNewAanganwadi({ ...newAanganwadi,manager: e.target.value })
                                             }
-                                            placeholder="Enter First Name"
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBasicmName">
-                                        <Form.Label>Middle Name</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            value={newUser.mName}
-                                            required
-                                            onChange={(e) =>
-                                                setNewUser({ ...newUser,mName: e.target.value })
-                                            }
-                                            placeholder="Enter Middle Name"
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBasiclName">
-                                        <Form.Label>Last Name</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            value={newUser.lName}
-                                            required
-                                            onChange={(e) =>
-                                                setNewUser({ ...newUser,lName: e.target.value })
-                                            }
-                                            placeholder="Enter Last Name"
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                                        <Form.Label>Email</Form.Label>
-                                        <Form.Control
-                                            type="mail"
-                                            value={newUser.email}
-                                            onChange={(e) =>
-                                                setNewUser({ ...newUser,email: e.target.value })
-                                            }
-                                            placeholder="Enter Email"
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBasicRole">
-                                        <Form.Label>Role</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            value={newUser.role}
-                                            onChange={(e) =>
-                                                setNewUser({ ...newUser,role: e.target.value })
-                                            }
-                                            placeholder="Enter Role"
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBasicSector">
-                                        <Form.Label>Sector</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            value={newUser.sector}
-                                            onChange={(e) =>
-                                                setNewUser({ ...newUser,sector: e.target.value })
-                                            }
-                                            placeholder="Enter Sector"
+                                            placeholder="Enter Manager Name"
                                         />
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="formBasicAddress">
                                         <Form.Label>Address</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            value={newUser.address}
+                                            value={newAanganwadi.address}
                                             onChange={(e) =>
-                                                setNewUser({ ...newUser,address: e.target.value })
+                                                setNewAanganwadi({ ...newAanganwadi,address: e.target.value })
                                             }
                                             placeholder="Enter Address"
+                                        />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formBasiclWorkers">
+                                        <Form.Label>Workers</Form.Label>
+                                        <Form.Control
+                                            type="number"
+                                            value={newAanganwadi.workers}
+                                            required
+                                            onChange={(e) =>
+                                                setNewAanganwadi({ ...newAanganwadi,workers: e.target.value })
+                                            }
+                                            placeholder="Enter Workers"
+                                        />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formBasicSector">
+                                        <Form.Label>Sector</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            value={newAanganwadi.sector}
+                                            onChange={(e) =>
+                                                setNewAanganwadi({ ...newAanganwadi,sector: e.target.value })
+                                            }
+                                            placeholder="Enter Sector"
                                         />
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
                                         <Form.Label>Phone Number</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            value={newUser.phoneNumber}
+                                            value={newAanganwadi.phoneNumber}
                                             onChange={(e) =>
-                                                setNewUser({ ...newUser,phoneNumber: e.target.value })
+                                                setNewAanganwadi({ ...newAanganwadi,phoneNumber: e.target.value })
                                             }
                                             placeholder="Enter Phone Number"
                                         />
                                     </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBasicLinkedAAnganwadi">
-                                        <Form.Label>Linked Aanganwadi</Form.Label>
+                                    <Form.Group className="mb-3" controlId="formBasicContactPerson">
+                                        <Form.Label>Contact person</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            value={newUser.linkedAanganwadi}
+                                            value={newAanganwadi.contactPerson}
                                             onChange={(e) =>
-                                                setNewUser({ ...newUser,linkedAanganwadi: e.target.value })
+                                                setNewAanganwadi({ ...newAanganwadi,contactPerson: e.target.value })
                                             }
-                                            placeholder="Enter Linked Aanganwadi"
+                                            placeholder="Enter Contact Person"
                                         />
                                     </Form.Group>
                                     {/* <Form.Group className="mb-3">
                                         <Form.Label>Address</Form.Label>
                                         <Form.Select
-                                            value={newUser.address}
+                                            value={newAanganwadi.address}
                                             onChange={(e) =>
-                                                setNewUser({ ...newUser,address: e.target.value })
+                                                setNewAanganwadi({ ...newAanganwadi,address: e.target.value })
                                             }
                                         >
                                             <option value="">Select</option>
@@ -311,7 +278,7 @@ const UserList
                                             Update
                                         </Button>
                                     ) : (
-                                        <Button variant="primary" disabled={!newUser.name} type="submit" onClick={handleClose}>
+                                        <Button variant="primary" disabled={!newAanganwadi.name} type="submit" onClick={handleClose}>
                                             Submit
                                         </Button>
                                     )}
@@ -324,4 +291,4 @@ const UserList
         );
     };
 
-export default UserList;
+export default AanganwadiList;

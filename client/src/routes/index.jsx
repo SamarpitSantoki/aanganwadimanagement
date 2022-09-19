@@ -1,4 +1,5 @@
 import { Outlet,Route,Routes } from "react-router-dom";
+import AanganwadiList from "../components/AanganwadiList/AanganwadiList";
 import Header from "../components/Header/Header";
 import Nav from "../components/Header/Nav";
 import HomePage from "../pages/HomePage";
@@ -11,6 +12,7 @@ function index() {
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/home" element={<HomePage />} />
+                <Route path="/aanganwadis" element={<AanganwadiList />} />
             </Routes>
         </div>
     );
