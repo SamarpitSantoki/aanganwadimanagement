@@ -17,20 +17,20 @@ const UserList
     = () => {
         const defaultUsers = [
             {
-                id: 1,
-                fname: "Bob",
-                address: "Dublin",
-                age: "26",
-                profession: "Software Engineer",
-                interestRate: "4",
+                fName: "A",
+                lName: "Abc",
+                email: "abc@gmail.com",
+                sector: "Abc",
+                phoneNumber: "9999999999",
+                linkedAanganwadi: "A",
             },
             {
-                id: 2,
-                name: "John",
-                address: "Galaway",
-                age: "24",
-                profession: "Software Engineer",
-                interestRate: "5",
+                fName: "A",
+                lName: "Abc",
+                email: "abc@gmail.com",
+                sector: "Abc",
+                phoneNumber: "9999999999",
+                linkedAanganwadi: "A",
             },
         ];
 
@@ -46,7 +46,7 @@ const UserList
         const [users,setUsers] = useState(defaultUsers);
         const [show,setShow] = useState(false);
         const [newUser,setNewUser] = useState(initCurrentUser);
-        const [showCreateBtn,setShowCreateBtn] = useState(true);
+        // const [showCreateBtn,setShowCreateBtn] = useState(true);
         const [editing,setEdit] = useState(false);
         const [rates,setRates] = useState([1,2,3,4,5,6,7,8,9,10]);
 
@@ -117,12 +117,12 @@ const UserList
                                 <Table striped bordered hover variant="light" className='m-2'>
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Address</th>
-                                            <th>Age</th>
-                                            <th>Profession</th>
-                                            <th>Sport Interest Rate</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Email</th>
+                                            <th>Sector</th>
+                                            <th>Phone</th>
+                                            <th>Aanganwadi</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -130,15 +130,15 @@ const UserList
                                         {users.length > 0 ? (
                                             users.map((user,index) => (
                                                 <tr key={index}>
-                                                    <td>{user.id}</td>
-                                                    <td>{user.name}</td>
-                                                    <td>{user.address}</td>
-                                                    <td>{user.age}</td>
-                                                    <td>{user.profession}</td>
-                                                    <td>{user.interestRate}</td>
+                                                    <td>{user.fName}</td>
+                                                    <td>{user.lName}</td>
+                                                    <td>{user.email}</td>
+                                                    <td>{user.sector}</td>
+                                                    <td>{user.phoneNumber}</td>
+                                                    <td>{user.linkedAanganwadi}</td>
                                                     <td>
                                                         <Button
-                                                            variant="info"
+                                                            variant="maincolor"
                                                             title="Edit user details"
                                                             onClick={() => onEdit(user)}
                                                         >
@@ -181,16 +181,73 @@ const UserList
                                     }
                                 </Modal.Header>
                                 <Modal.Body>
-                                    <Form.Group className="mb-3" controlId="formBasicName">
-                                        <Form.Label>Name</Form.Label>
+                                    <Form.Group className="mb-3" controlId="formBasicfName">
+                                        <Form.Label>First Name</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            value={newUser.name}
+                                            value={newUser.fName}
                                             required
                                             onChange={(e) =>
-                                                setNewUser({ ...newUser,name: e.target.value })
+                                                setNewUser({ ...newUser,fName: e.target.value })
                                             }
-                                            placeholder="Enter Name"
+                                            placeholder="Enter First Name"
+                                        />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formBasicmName">
+                                        <Form.Label>Middle Name</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            value={newUser.mName}
+                                            required
+                                            onChange={(e) =>
+                                                setNewUser({ ...newUser,mName: e.target.value })
+                                            }
+                                            placeholder="Enter Middle Name"
+                                        />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formBasiclName">
+                                        <Form.Label>Last Name</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            value={newUser.lName}
+                                            required
+                                            onChange={(e) =>
+                                                setNewUser({ ...newUser,lName: e.target.value })
+                                            }
+                                            placeholder="Enter Last Name"
+                                        />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                        <Form.Label>Email</Form.Label>
+                                        <Form.Control
+                                            type="mail"
+                                            value={newUser.email}
+                                            onChange={(e) =>
+                                                setNewUser({ ...newUser,email: e.target.value })
+                                            }
+                                            placeholder="Enter Email"
+                                        />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formBasicRole">
+                                        <Form.Label>Role</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            value={newUser.role}
+                                            onChange={(e) =>
+                                                setNewUser({ ...newUser,role: e.target.value })
+                                            }
+                                            placeholder="Enter Role"
+                                        />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formBasicSector">
+                                        <Form.Label>Sector</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            value={newUser.sector}
+                                            onChange={(e) =>
+                                                setNewUser({ ...newUser,sector: e.target.value })
+                                            }
+                                            placeholder="Enter Sector"
                                         />
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="formBasicAddress">
@@ -204,34 +261,34 @@ const UserList
                                             placeholder="Enter Address"
                                         />
                                     </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBasicAge">
-                                        <Form.Label>Age</Form.Label>
-                                        <Form.Control
-                                            type="number"
-                                            value={newUser.age}
-                                            onChange={(e) =>
-                                                setNewUser({ ...newUser,age: e.target.value })
-                                            }
-                                            placeholder="Enter Age"
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBasicProfession">
-                                        <Form.Label>Profession</Form.Label>
+                                    <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
+                                        <Form.Label>Phone Number</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            value={newUser.profession}
+                                            value={newUser.phoneNumber}
                                             onChange={(e) =>
-                                                setNewUser({ ...newUser,profession: e.target.value })
+                                                setNewUser({ ...newUser,phoneNumber: e.target.value })
                                             }
-                                            placeholder="Enter Profession"
+                                            placeholder="Enter Phone Number"
                                         />
                                     </Form.Group>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>Sport Interest Rate</Form.Label>
-                                        <Form.Select
-                                            value={newUser.interestRate}
+                                    <Form.Group className="mb-3" controlId="formBasicLinkedAAnganwadi">
+                                        <Form.Label>Linked Aanganwadi</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            value={newUser.linkedAanganwadi}
                                             onChange={(e) =>
-                                                setNewUser({ ...newUser,interestRate: e.target.value })
+                                                setNewUser({ ...newUser,linkedAanganwadi: e.target.value })
+                                            }
+                                            placeholder="Enter Linked Aanganwadi"
+                                        />
+                                    </Form.Group>
+                                    {/* <Form.Group className="mb-3">
+                                        <Form.Label>Address</Form.Label>
+                                        <Form.Select
+                                            value={newUser.address}
+                                            onChange={(e) =>
+                                                setNewUser({ ...newUser,address: e.target.value })
                                             }
                                         >
                                             <option value="">Select</option>
@@ -243,7 +300,7 @@ const UserList
                                                 ))
                                                 : null}
                                         </Form.Select>
-                                    </Form.Group>
+                                    </Form.Group> */}
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Button variant="secondary" onClick={handleClose}>

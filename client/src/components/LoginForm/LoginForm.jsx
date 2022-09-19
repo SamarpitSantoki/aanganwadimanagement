@@ -17,7 +17,7 @@ const Login = () => {
                         <input
                             type="text"
                             className="form-control mt-1"
-                            placeholder="Enter email"
+                            placeholder="Enter username"
                         />
                     </div>
                     <div className="form-group mt-3">
