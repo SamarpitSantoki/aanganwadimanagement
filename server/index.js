@@ -1,13 +1,17 @@
 const Login = require("./routes/login.route");
 const bodyParser = require("body-parser");
-
 const app = require("express")();
 
 const bcrypt = require("bcrypt");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+const connectDB = require("./database/conn");
+
+connectDB();
 //APIS FOR AUTH
+
+//http://localhost:3000/auth/login
 app.use("/auth", Login);
 
 
