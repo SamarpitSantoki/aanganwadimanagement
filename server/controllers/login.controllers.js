@@ -1,16 +1,15 @@
 const auth = require("../models/auth")
 
 module.exports.singup = async (req, res) => {
-  const { name, email, password } = req.body;
-  // const hash=await bcrypt.hash(password,10);
-  // const user=new User({
-  //     name,
-  //     email,
-  //     // password:hash
-  //     password
-  // });
-  // await user.save();
-  res.send("user created");
+  const { username, password } = req.body;
+//   const hash=await bcrypt.hash(password,10);
+  const user=new auth({
+      username,
+      // password:hash
+      password
+  });
+  await user.save();
+  res.status(200).send("user created");
 };
 
 module.exports.login = async (req, res) => {
