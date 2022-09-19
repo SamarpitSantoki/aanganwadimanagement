@@ -16,7 +16,7 @@ const AanganwadiSchema = new Schema({
      require: true
    },  
    stock: {
-     type: int,
+     type: String,
      require: true
    },  
    contactPerson: {
@@ -24,7 +24,8 @@ const AanganwadiSchema = new Schema({
      require: true
    },
    resourceNeeded: {
-      type: Boolean
+      type: Boolean,
+      require: true
    },
    sector: {
     type: String,
