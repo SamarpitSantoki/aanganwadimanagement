@@ -1,26 +1,26 @@
 .container {
- height: 80px;
+  /* height: 50%; */
   text-align: center;
-  width:auto;
+  width: auto;
   display: flex;
   align-items: center;
-  justify-content:flex-start;
+  justify-content: flex-start;
   gap: 30px;
-  background-color: rgb(220, 91, 91);
-  min-height: auto;
+  background-color: rgb(100, 100, 232);
+  /* min-height: auto; */
 }
 
 .heading {
-padding:10px;
+  padding: 10px;
   margin: 0;
   max-width: auto;
   color: rgb(236, 187, 26);
-  font: size 2px;;
+  font: size 2px;
   line-height: 0px;
   /* font-weight: bold; */
   letter-spacing: 1px;
 }
 
-.heading img{
-    padding: 10px;
+.heading img {
+  padding: 10px;
 }

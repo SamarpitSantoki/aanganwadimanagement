@@ -37,8 +37,7 @@ const AanganwadiSchema = new Schema({
    },
    phoneNumber: {
     type: int,
-    require: true,
-    unique: true
+    require: true
    }
  });
  
