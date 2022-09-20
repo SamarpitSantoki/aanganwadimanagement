@@ -92,165 +92,197 @@ const AanganwadiList
         };
 
         return (
-            <Container fluid="md">
-                <Row>
-                    <Col>
-                        <Card className="customCard">
-                            <Card.Body>
-                                <div className="d-flex justify-content-between customCardBody">
-                                    <div>
-                                        <Card.Title>Aanganwadi Data</Card.Title>
-                                    </div>
-                                    <div className="d-flex">
+          <Container fluid="md mt-5">
+            <Row>
+              <Col>
+                <Card className="customCard">
+                  <Card.Body>
+                    <div className="d-flex justify-content-between customCardBody">
+                      <div>
+                        <Card.Title>Aanganwadi Data</Card.Title>
+                      </div>
+                      <div className="d-flex">
+                        <Button
+                          variant="maincolor"
+                          onClick={handleShow}
+                          title="Add Aanganwadi"
+                        >
+                          <FaPlus color="white" />
+                        </Button>
+                      </div>
+                    </div>
+                    <Table
+                      striped
+                      bordered
+                      hover
+                      variant="light"
+                      className="m-2"
+                    >
+                      <thead>
+                        <tr>
+                          <th>Manager</th>
+                          <th>Workers</th>
+                          <th>Sector</th>
+                          <th>Phone</th>
+                          <th>Contact Person</th>
+                          <th>ResourceNeeded</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {aanganwadis.length > 0 ? (
+                          aanganwadis.map((aanganwadi, index) => (
+                            <tr key={index}>
+                              <td>{aanganwadi.manager}</td>
+                              <td>{aanganwadi.workers}</td>
+                              <td>{aanganwadi.sector}</td>
+                              <td>{aanganwadi.phoneNumber}</td>
+                              <td>{aanganwadi.contactPerson}</td>
+                              <td>{aanganwadi.resourceNeeded}</td>
+                              <td>
+                                <Button
+                                  variant="maincolor"
+                                  title="Edit aanganwadi details"
+                                  onClick={() => onEdit(aanganwadi)}
+                                >
+                                  <FaPencilAlt />
+                                </Button>{" "}
+                                <Button
+                                  variant="danger"
+                                  title="Delete aanganwadi"
+                                  onClick={() => onDeleteAanganwadi(aanganwadi)}
+                                >
+                                  <FaTrashAlt />
+                                </Button>
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <tr>
+                            <td colSpan={6} className="text-center">
+                              No aanganwadis found.
+                            </td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </Table>
+                  </Card.Body>
+                </Card>
 
-                                        <Button
-                                            variant="maincolor"
-                                            onClick={handleShow}
-                                            title="Add Aanganwadi"
-                                        >
-                                            <FaPlus color="white" />
-                                        </Button>
-
-                                    </div>
-                                </div>
-                                <Table striped bordered hover variant="light" className='m-2'>
-                                    <thead>
-                                        <tr>
-                                            <th>Manager</th>
-                                            <th>Workers</th>
-                                            <th>Sector</th>
-                                            <th>Phone</th>
-                                            <th>Contact Person</th>
-                                            <th>ResourceNeeded</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {aanganwadis.length > 0 ? (
-                                            aanganwadis.map((aanganwadi,index) => (
-                                                <tr key={index}>
-                                                    <td>{aanganwadi.manager}</td>
-                                                    <td>{aanganwadi.workers}</td>
-                                                    <td>{aanganwadi.sector}</td>
-                                                    <td>{aanganwadi.phoneNumber}</td>
-                                                    <td>{aanganwadi.contactPerson}</td>
-                                                    <td>
-                                                        {aanganwadi.resourceNeeded}
-                                                    </td>
-                                                    <td>
-                                                        <Button
-                                                            variant="maincolor"
-                                                            title="Edit aanganwadi details"
-                                                            onClick={() => onEdit(aanganwadi)}
-                                                        >
-                                                            <FaPencilAlt />
-                                                        </Button>{" "}
-                                                        <Button
-                                                            variant="danger"
-                                                            title="Delete aanganwadi"
-                                                            onClick={() => onDeleteAanganwadi(aanganwadi)}
-                                                        >
-                                                            <FaTrashAlt />
-                                                        </Button>
-                                                    </td>
-                                                </tr>
-                                            ))
-                                        ) : (
-                                            <tr>
-                                                <td colSpan={6} className="text-center">
-                                                    No aanganwadis found.
-                                                </td>
-                                            </tr>
-                                        )}
-                                    </tbody>
-                                </Table>
-                            </Card.Body>
-                        </Card>
-
-                        <Modal size="lg" show={show} onHide={handleClose}>
-                            <Form
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    onSubmit(newAanganwadi);
-                                }}
-                            >
-                                <Modal.Header closeButton>
-                                    {
-                                        editing == true
-                                            ? <Modal.Title>Edit Aanganwadi</Modal.Title>
-                                            : <Modal.Title>Add Aanganwadi</Modal.Title>
-                                    }
-                                </Modal.Header>
-                                <Modal.Body>
-                                    <Form.Group className="mb-3" controlId="formBasicfManager">
-                                        <Form.Label>Manager</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            value={newAanganwadi.manager}
-                                            required
-                                            onChange={(e) =>
-                                                setNewAanganwadi({ ...newAanganwadi,manager: e.target.value })
-                                            }
-                                            placeholder="Enter Manager Name"
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBasicAddress">
-                                        <Form.Label>Address</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            value={newAanganwadi.address}
-                                            onChange={(e) =>
-                                                setNewAanganwadi({ ...newAanganwadi,address: e.target.value })
-                                            }
-                                            placeholder="Enter Address"
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBasiclWorkers">
-                                        <Form.Label>Workers</Form.Label>
-                                        <Form.Control
-                                            type="number"
-                                            value={newAanganwadi.workers}
-                                            required
-                                            onChange={(e) =>
-                                                setNewAanganwadi({ ...newAanganwadi,workers: e.target.value })
-                                            }
-                                            placeholder="Enter Workers"
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBasicSector">
-                                        <Form.Label>Sector</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            value={newAanganwadi.sector}
-                                            onChange={(e) =>
-                                                setNewAanganwadi({ ...newAanganwadi,sector: e.target.value })
-                                            }
-                                            placeholder="Enter Sector"
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
-                                        <Form.Label>Phone Number</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            value={newAanganwadi.phoneNumber}
-                                            onChange={(e) =>
-                                                setNewAanganwadi({ ...newAanganwadi,phoneNumber: e.target.value })
-                                            }
-                                            placeholder="Enter Phone Number"
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="formBasicContactPerson">
-                                        <Form.Label>Contact person</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            value={newAanganwadi.contactPerson}
-                                            onChange={(e) =>
-                                                setNewAanganwadi({ ...newAanganwadi,contactPerson: e.target.value })
-                                            }
-                                            placeholder="Enter Contact Person"
-                                        />
-                                    </Form.Group>
-                                    {/* <Form.Group className="mb-3">
+                <Modal size="lg" show={show} onHide={handleClose}>
+                  <Form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      onSubmit(newAanganwadi);
+                    }}
+                  >
+                    <Modal.Header closeButton>
+                      {editing == true ? (
+                        <Modal.Title>Edit Aanganwadi</Modal.Title>
+                      ) : (
+                        <Modal.Title>Add Aanganwadi</Modal.Title>
+                      )}
+                    </Modal.Header>
+                    <Modal.Body>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formBasicfManager"
+                      >
+                        <Form.Label>Manager</Form.Label>
+                        <Form.Control
+                          type="text"
+                          value={newAanganwadi.manager}
+                          required
+                          onChange={(e) =>
+                            setNewAanganwadi({
+                              ...newAanganwadi,
+                              manager: e.target.value,
+                            })
+                          }
+                          placeholder="Enter Manager Name"
+                        />
+                      </Form.Group>
+                      <Form.Group className="mb-3" controlId="formBasicAddress">
+                        <Form.Label>Address</Form.Label>
+                        <Form.Control
+                          type="text"
+                          value={newAanganwadi.address}
+                          onChange={(e) =>
+                            setNewAanganwadi({
+                              ...newAanganwadi,
+                              address: e.target.value,
+                            })
+                          }
+                          placeholder="Enter Address"
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formBasiclWorkers"
+                      >
+                        <Form.Label>Workers</Form.Label>
+                        <Form.Control
+                          type="number"
+                          value={newAanganwadi.workers}
+                          required
+                          onChange={(e) =>
+                            setNewAanganwadi({
+                              ...newAanganwadi,
+                              workers: e.target.value,
+                            })
+                          }
+                          placeholder="Enter Workers"
+                        />
+                      </Form.Group>
+                      <Form.Group className="mb-3" controlId="formBasicSector">
+                        <Form.Label>Sector</Form.Label>
+                        <Form.Control
+                          type="text"
+                          value={newAanganwadi.sector}
+                          onChange={(e) =>
+                            setNewAanganwadi({
+                              ...newAanganwadi,
+                              sector: e.target.value,
+                            })
+                          }
+                          placeholder="Enter Sector"
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formBasicPhoneNumber"
+                      >
+                        <Form.Label>Phone Number</Form.Label>
+                        <Form.Control
+                          type="text"
+                          value={newAanganwadi.phoneNumber}
+                          onChange={(e) =>
+                            setNewAanganwadi({
+                              ...newAanganwadi,
+                              phoneNumber: e.target.value,
+                            })
+                          }
+                          placeholder="Enter Phone Number"
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formBasicContactPerson"
+                      >
+                        <Form.Label>Contact person</Form.Label>
+                        <Form.Control
+                          type="text"
+                          value={newAanganwadi.contactPerson}
+                          onChange={(e) =>
+                            setNewAanganwadi({
+                              ...newAanganwadi,
+                              contactPerson: e.target.value,
+                            })
+                          }
+                          placeholder="Enter Contact Person"
+                        />
+                      </Form.Group>
+                      {/* <Form.Group className="mb-3">
                                         <Form.Label>Address</Form.Label>
                                         <Form.Select
                                             value={newAanganwadi.address}
@@ -268,26 +300,35 @@ const AanganwadiList
                                                 : null}
                                         </Form.Select>
                                     </Form.Group> */}
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="secondary" onClick={handleClose}>
-                                        Close
-                                    </Button>
-                                    {editing === true ? (
-                                        <Button variant="primary" type="submit" onClick={handleClose}>
-                                            Update
-                                        </Button>
-                                    ) : (
-                                        <Button variant="primary" disabled={!newAanganwadi.name} type="submit" onClick={handleClose}>
-                                            Submit
-                                        </Button>
-                                    )}
-                                </Modal.Footer>
-                            </Form>
-                        </Modal>
-                    </Col>
-                </Row>
-            </Container>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleClose}>
+                        Close
+                      </Button>
+                      {editing === true ? (
+                        <Button
+                          variant="primary"
+                          type="submit"
+                          onClick={handleClose}
+                        >
+                          Update
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="primary"
+                          disabled={!newAanganwadi.name}
+                          type="submit"
+                          onClick={handleClose}
+                        >
+                          Submit
+                        </Button>
+                      )}
+                    </Modal.Footer>
+                  </Form>
+                </Modal>
+              </Col>
+            </Row>
+          </Container>
         );
     };
 
