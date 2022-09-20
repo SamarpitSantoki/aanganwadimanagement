@@ -5,50 +5,50 @@ const UserSchema = new Schema({
   username: {
     type: String,
     unique: true,
-    require: true
+    require: true,
   },
   email: {
     type: String,
-    require: true
+    require: true,
   },
   fName: {
     type: String,
-    require: true
-  },  
+    require: true,
+  },
   lName: {
     type: String,
-    require: true
-  },  
+    require: true,
+  },
   mName: {
     type: String,
-    require: true
-  },  
+    require: true,
+  },
   password: {
     type: String,
     require: true,
-    unique: true
+    unique: true,
   },
   role: {
-   type: String,
-   require: true
+    type: String,
+    require: true,
   },
   sector: {
-   type: String,
-   require: true
+    type: String,
+    require: true,
   },
   address: {
-   type: String,
-   require: true
+    type: String,
+    require: true,
   },
   phoneNumber: {
-   type: int,
-   require: true,
-   unique: true
+    type: Number,
+    require: true,
+    unique: true,
   },
   linkedAanganwadi: {
-   type: int,
-   require: true
-  }
+    type: [mongoose.Types.ObjectId],
+    require: true,
+  },
 });
 
 const User = mongoose.model("user", UserSchema);
