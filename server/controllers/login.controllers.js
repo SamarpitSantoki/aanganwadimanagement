@@ -1,38 +1,41 @@
+const bcrypt = require("bcrypt");
+const Auth = require("../models/auth");
+const User = require("../models/user");
 
+const Login = async (req, res) => {
+  const { username, password } = req.body;
+  const exists = await Auth.findOne({ username });
+  if (exists) {
+    const isPasswordValid = await bcrypt.compare(password, exists.password);
+    if (isPasswordValid) {
+      res.status(200).send({
+        username: exists.username,
+      });
+    } else {
+      res.status(401).send({
+        message: "Wrong UserName or Password",
+      });
+    }
+  } else {
+    res.status(404).send({ message: "User Not Found" });
+  }
 
-module.exports.login = async (req, res) => {
+  // const hash = await bcrypt.compare("SamTesting@123", list[0].password);
+};
+
+const SignUp = async (req, res) => {
   const { name, email, password } = req.body;
-  // const hash=await bcrypt.hash(password,10);
-  // const user=new User({
-  //     name,
-  //     email,
-  //     // password:hash
-  //     password
-  // });
-  // await user.save();
+  const hash = await bcrypt.hash(password, 10);
+  const user = new User({
+    name,
+    email,
+    password: hash,
+  });
+  await user.save();
   res.send("user created");
 };
 
-// exports.signup = async (req, res) => {
-//     const { email, password } = req.body;
-//     //check if user exists
-//     const user = await User.findOne({ email });
-//     if (!user) {
-//         return res.status(400).json({ error: "User does not exist" });
-//     }
-//     //check if password is correct
-//     const isMatch = await bcrypt.compare(password, user.password);
-//     if (!isMatch) {
-//         return res.status(400).json({ error: "Password is incorrect" });
-//     }
-//     //create token
-//     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-//         expiresIn: 3600,
-//     });
-//     //send response
-//     res.status(200).json({ token });
-// };
-
-// module.exports = {
-//   login,
-// };
+module.exports = {
+  Login,
+  SignUp,
+};
