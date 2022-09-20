@@ -11,10 +11,13 @@ app.use(bodyParser.json());
 const connectDB = require("./database/conn");
 
 connectDB();
-//APIS FOR AUTH
 
+//APIS FOR AUTH
 //http://localhost:3000/auth/login
 app.use("/auth", Login);
+
+//APIS FOR REGISTER WORKER
+app.use("/worker", Worker);
 
 //APIS FOR REGISTER WORKER
 app.use("/worker", Worker);
