@@ -1,8 +1,10 @@
 const GetWorkerList = (req, res) => {
   const { filter } = req.body;
 };
+const User = require("../models/user");
 
-const Regiter = (req, res) => {
+
+const Regiter = async(req, res) => {
   //this fields will come from frontend use User Schema to save this
   //query db for any existing email id reject if email exists
   // LinkedAanganwadi is an array of id's
@@ -17,6 +19,20 @@ const Regiter = (req, res) => {
     phoneNumber,
     LinkedAanganwadi,
   } = req.body;
+
+
+  const user = new User({
+    fname,
+    lname,
+    mname,
+    email,
+    role,
+    sector,
+    address,
+    phoneNumber,
+    LinkedAanganwadi,
+  });
+  await user.save();
 
   res.send("register worker");
 };
