@@ -16,22 +16,22 @@ import { FaPencilAlt,FaPlus,FaTrashAlt } from "react-icons/fa";
 const UserList
     = () => {
         const defaultUsers = [
-            {
-                fName: "A",
-                lName: "Abc",
-                email: "abc@gmail.com",
-                sector: "Abc",
-                phoneNumber: "9999999999",
-                linkedAanganwadi: "A",
-            },
-            {
-                fName: "A",
-                lName: "Abc",
-                email: "abc@gmail.com",
-                sector: "Abc",
-                phoneNumber: "9999999999",
-                linkedAanganwadi: "A",
-            },
+          {
+            fName: "Samarpit",
+            lName: "Abc",
+            email: "abc@gmail.com",
+            sector: "Abc",
+            phoneNumber: "9999999999",
+            linkedAanganwadi: "A",
+          },
+          {
+            fName: "A",
+            lName: "Abc",
+            email: "abc@gmail.com",
+            sector: "9",
+            phoneNumber: "9999999999",
+            linkedAanganwadi: "A",
+          },
         ];
 
         const initCurrentUser = {
