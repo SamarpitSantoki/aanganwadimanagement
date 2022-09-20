@@ -19,7 +19,9 @@ const Header = () => {
           <button>Stock</button>
           <button>Requests</button>
           <button>Profile</button>
+
         </div>
+             <button className={style.right}>Logout</button>
       </div>
     </>
   );

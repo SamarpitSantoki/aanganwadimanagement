@@ -19,9 +19,9 @@
   gap: 30px;
   background-color: rgb(220, 91, 91);
   min-height: auto;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .heading {
@@ -56,10 +56,14 @@
   /* background-color: orange; */
   color: white;
   background-color: rgb(220, 91, 91);
+  border-radius: 10%;
   font-weight: 600;
+  padding: 2px 1px;
   margin: 2ex;
   border: none;
 }
+
+
 
 .left button:hover {
    background-color: orange;
