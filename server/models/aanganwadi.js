@@ -11,21 +11,21 @@ const AanganwadiSchema = new Schema({
      type: String,
      require: true
    },
-   workers: {
+   workers: [{
      type: int,
      require: true
-   },  
-   stock: {
+   }],  
+   stock: [{
      type: String,
      require: true
-   },  
+   }],  
    contactPerson: {
      type: int,
      require: true
    },
    resourceNeeded: {
       type: Boolean,
-      require: true
+      require: false
    },
    sector: {
     type: String,

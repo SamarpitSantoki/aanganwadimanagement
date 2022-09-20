@@ -20,21 +20,27 @@ const Regiter = async(req, res) => {
     LinkedAanganwadi,
   } = req.body;
 
+  const exists = await User.findOne({ email });
+  if (exists) {
+    res.status(404).send({ message: "User already Found" });
+  
+  } else {
+    const user = new User({
+      fname,
+      lname,
+      mname,
+      email,
+      role,
+      sector,
+      address,
+      phoneNumber,
+      LinkedAanganwadi,
+    });
+    await user.save();
+  
+    res.send("register worker");
+  };
+  }
 
-  const user = new User({
-    fname,
-    lname,
-    mname,
-    email,
-    role,
-    sector,
-    address,
-    phoneNumber,
-    LinkedAanganwadi,
-  });
-  await user.save();
-
-  res.send("register worker");
-};
 
 module.exports = { Regiter, GetWorkerList };
