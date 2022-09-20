@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const connectDB = require("./database/conn");
-
+const aanganwadi =require("./routes/aanganwadi.route")
 connectDB();
 
 //APIS FOR AUTH
@@ -20,7 +20,7 @@ app.use("/auth", Login);
 app.use("/worker", Worker);
 
 //APIS FOR REGISTER WORKER
-app.use("/worker", Worker);
+app.use("/aanganwadi", aanganwadi);
 
 //create api login using database
 

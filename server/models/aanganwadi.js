@@ -12,7 +12,7 @@ const AanganwadiSchema = new Schema({
      require: true
    },
    workers: [{
-     type: int,
+     type: String,
      require: true
    }],  
    stock: [{
@@ -20,7 +20,7 @@ const AanganwadiSchema = new Schema({
      require: true
    }],  
    contactPerson: {
-     type: int,
+     type: String,
      require: true
    },
    resourceNeeded: {
@@ -36,9 +36,8 @@ const AanganwadiSchema = new Schema({
     require: true
    },
    phoneNumber: {
-    type: int,
-    require: true,
-    unique: true
+    type: Number,
+    require: true
    }
  });
  
