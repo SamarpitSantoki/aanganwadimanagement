@@ -1,2 +1,4 @@
 singup => POST API  http://localhost:3000/auth/singup
 login => POST API  http://localhost:3000/auth/login
+new aanganwadi => POST API localhost:3000/aanganwadi/newAanganwadi
+ListAaganwadi => GET API localhost:3000/aanganwadi/getAanganwadiList
