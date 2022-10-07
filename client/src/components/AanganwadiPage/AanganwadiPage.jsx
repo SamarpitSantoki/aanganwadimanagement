@@ -6,16 +6,24 @@ import { FaPencilAlt, FaPlus, FaTrashAlt } from "react-icons/fa";
 const AanganwadiPage = () => {
   return (
     <>
-      <div className="container px-4 mt-5">
-        <div className="row gx-5">
-          <div className="col">
-            <div className="p-2 text-center border bg-light">
-              Aanganwadi-Details
-            </div>
-          </div>
+      <div className="container px-0 mt-5 striped bordered hover variant=light">
+        <div className="row gx-3">
           <div className="col">
             <div className="p-2 border bg-light">
-              Aanganwadi Manager-Details
+              <h5 className="text-center border-bottom">Aanganwadi-Details</h5>
+              <div className="p-2 text bg-light">
+                <tr>Manager</tr>
+                <tr>Workers</tr>
+                <tr>Sector</tr>
+                <tr>Phone</tr>
+                <tr>Contact Person</tr>
+                <tr>ResourceNeeded</tr>
+              </div>
+            </div>
+          </div>
+          <div className="col ">
+            <div className="p-2 border bg-light">
+              <h5 className="text-center border-bottom">Aanganwadi Manager-Details</h5>
               <div className="p-2 text bg-light">
                 <tr>First Name</tr>
                 <tr>Last Name</tr>
@@ -23,7 +31,6 @@ const AanganwadiPage = () => {
                 <tr>Sector</tr>
                 <tr>Phone</tr>
                 <tr>Aanganwadi</tr>
-                <tr>Actions</tr>
               </div>
             </div>
           </div>
@@ -43,7 +50,7 @@ const AanganwadiPage = () => {
                 <Table striped bordered hover variant="light" className="m-2">
                   <thead>
                     <tr>
-                      <th>Resource-Name</th>
+                      <th>Resource</th>
                       <th>Quantity</th>
                     </tr>
                   </thead>
