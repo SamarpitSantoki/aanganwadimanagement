@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import {
     Button,
     Container,
@@ -89,23 +89,23 @@ const ResourceRequest = () => {
 
     };
 
-    const onSubmit = (newreq) => {
-        if(editing === true) {
-            onUpdatereq(newreq);
-        } else {
-            onFormSubmit(newreq);
-        }
-    };
+  const onSubmit = (newreq) => {
+    if (editing === true) {
+      onUpdatereq(newreq);
+    } else {
+      onFormSubmit(newreq);
+    }
+  };
 
-    const onUpdatereq = (newreq) => {
-        setEdit(false);
-        let id = newreq.id;
-        setreqs(reqs.map((i) => (i.id === id ? newreq : i)));
-    };
+  const onUpdatereq = (newreq) => {
+    setEdit(false);
+    let id = newreq.id;
+    setreqs(reqs.map((i) => (i.id === id ? newreq : i)));
+  };
 
-    const onDeletereq = (currentreq) => {
-        setreqs(reqs.filter((i) => i.id !== currentreq.id));
-    };
+  const onDeletereq = (currentreq) => {
+    setreqs(reqs.filter((i) => i.id !== currentreq.id));
+  };
 
     return (
         <Container fluid="md mt-5">
