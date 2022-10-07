@@ -1,11 +1,10 @@
 let express = require("express");
 const router = express.Router();
-const { CreateAanganwadi,GetAanganwadiList, GetAanganwadiListFilter} = require("../controllers/aanganwadi.controller");
-
+const { CreateAanganwadi,GetAanganwadiList} = require("../controllers/aanganwadi.controller");
+const {protect}= require('../middleware/Auth');
 
 router.post("/newAanganwadi", CreateAanganwadi);
-router.get("/getAanganwadiList", GetAanganwadiList);
-router.get("/getAanganwadiListFilter", GetAanganwadiListFilter);
+router.get("/getAanganwadiList",protect,GetAanganwadiList);
 
 
 module.exports = router;

@@ -26,7 +26,7 @@ app.use("/aanganwadi", aanganwadi);
 
 //create api login using database
 
-// 404 Error
+// 404 Error 
 // app.use((req, res, next) => {
 //   next(createError(404, "Not Found"));
 // });
