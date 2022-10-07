@@ -6,3 +6,4 @@ router.post("/login", Login);
 router.post("/singup", SignUp);
 
 module.exports = router;
+    

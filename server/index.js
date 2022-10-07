@@ -4,6 +4,8 @@ const cors = require("cors");
 const Login = require("./routes/login.route");
 const Worker = require("./routes/worker.route");
 
+
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

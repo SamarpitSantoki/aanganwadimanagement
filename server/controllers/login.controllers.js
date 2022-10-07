@@ -26,13 +26,13 @@ const Login = async (req, res) => {
 const SignUp = async (req, res) => {
   const { name, email, password } = req.body;
   const hash = await bcrypt.hash(password, 10);
-  const user = new User({
+  const user = new Auth({
     name,
     email,
     password: hash,
   });
   await user.save();
-  res.send("user created");
+  res.status(200).send("user created");
 };
 
 module.exports = {

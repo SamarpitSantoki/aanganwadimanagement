@@ -36,11 +36,7 @@ const AanganwadiSchema = new Schema({
     require: true
    },
    phoneNumber: {
-<<<<<<< HEAD
-    type: int,
-=======
     type: Number,
->>>>>>> fd6b1c826c8f53c7f44ce021e761028d7ea72f39
     require: true
    }
  });
