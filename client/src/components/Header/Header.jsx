@@ -33,7 +33,7 @@ const Header = () => {
             <button>Profile</button>
           </Link>
         </div>
-             <button className={style.right}>Logout</button>
+             {/* <button className={style.right}>Logout</button> */}
       </div>
     </>
   );
