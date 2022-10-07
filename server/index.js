@@ -4,6 +4,8 @@ const cors = require("cors");
 const Login = require("./routes/login.route");
 const Worker = require("./routes/worker.route");
 
+
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -24,7 +26,7 @@ app.use("/aanganwadi", aanganwadi);
 
 //create api login using database
 
-// 404 Error
+// 404 Error 
 // app.use((req, res, next) => {
 //   next(createError(404, "Not Found"));
 // });

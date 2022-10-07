@@ -1,10 +1,24 @@
 const Aanganwadi= require("../models/aanganwadi");
+// const connectDB = require("./database/conn");
 
 const GetAanganwadiList = async (req, res) => {
   const {username}=req.body;
   const exists = await Aanganwadi.find({ });
-
     res.status(200).send(exists);
+};
+
+const GetAanganwadiListFilter = async (req, res) => {
+  try {
+    const filters = req.query;
+    console.log(filters);
+    const filteredUsers = await Aanganwadi.find({filters})
+    console.log(filteredUsers);
+    res.status(200).send(filteredUsers);
+    
+  } catch (error) {
+    console.log(error);
+  }
+
 };
   
   
@@ -26,7 +40,7 @@ const GetAanganwadiList = async (req, res) => {
     if (exists) {
       res.status(404).send({ message: "User Already Found" });
     
-    } else {
+    } else {  
       const user = new Aanganwadi({
         username,
       manager,
@@ -37,10 +51,10 @@ const GetAanganwadiList = async (req, res) => {
       });
       await user.save();
     
-      res.send("Aanganwadi Register Successfully");
+      res.status(200).send("Aanganwadi Register Successfully");
     };
     }
   
   
-  module.exports = { CreateAanganwadi, GetAanganwadiList };
+  module.exports = { CreateAanganwadi, GetAanganwadiList,GetAanganwadiListFilter };
   

@@ -8,12 +8,14 @@ const Login = async (req, res) => {
   if (exists) {
     const isPasswordValid = await bcrypt.compare(password, exists.password);
     if (isPasswordValid) {
-      res.status(200).send({
-        email: exists.email,
-        name: exists.name,
+      res.json({
+        _id: user.id,
+        name: user.name,
+        email: user.email,
+        token: generateToken(user._id),
       });
     } else {
-      res.status(401).send({
+      res.status(400).send({
         message: "Wrong UserName or Password",
       });
     }
@@ -27,15 +29,29 @@ const Login = async (req, res) => {
 const SignUp = async (req, res) => {
   const { name, email, password } = req.body;
   const hash = await bcrypt.hash(password, 10);
-  const user = new User({
+  const user = new Auth({
     name,
     email,
     password: hash,
   });
   await user.save();
-  res.send("user created");
+  generateToken(email, password);
+  if (user) {
+    res.json({
+      message: "user created successfully",
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid user data");
+  }
 };
 
+const generateToken = (email) => {
+  return jwt.sign({ email }, process.env.JWT_SECRET, {
+    expiresIn: "30d",
+  });
+};
 module.exports = {
   Login,
   SignUp,

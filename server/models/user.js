@@ -32,8 +32,7 @@ const UserSchema = new Schema({
   },
   phoneNumber: {
     type: Number,
-    require: true,
-    unique: true,
+    require: true
   },
   linkedAanganwadi: {
     type: [mongoose.Types.ObjectId],
