@@ -1,6 +1,6 @@
 let express = require("express");
 const router = express.Router();
-const {Getresource,addresource,deleteresource,updatedresource,Getallresource } = require("../controllers/resource.controler");
+const {Getresource,addresource,deleteresource,updatedresource,Getallresource } = require("../controllers/resource.controller");
 const {verifyUserToken}= require('../middleware/Auth');
 
 router.get("/getresource:aanganwadiId", verifyUserToken,Getresource);
