@@ -4,7 +4,7 @@ const { CreateAanganwadi,GetAanganwadiList} = require("../controllers/aanganwadi
 const {verifyUserToken}= require('../middleware/Auth');
 
 router.post("/", CreateAanganwadi);
-router.get("/",verifyUserToken,GetAanganwadiList);
+router.get("/", verifyUserToken, GetAanganwadiList);
 
 
 module.exports = router;

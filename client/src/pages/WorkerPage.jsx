@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { FaPencilAlt, FaPlus, FaTrashAlt } from "react-icons/fa";
 import axiosFetch from "../helpers/axiosfetch";
+import { useEffect } from "react";
 
 const WorkerPage = ({ heading }) => {
   const defaultUsers = [
@@ -92,10 +93,15 @@ const WorkerPage = ({ heading }) => {
 
   const [users, setUsers] = useState(defaultUsers);
   const [show, setShow] = useState(false);
-  const [newUser, setNewUser] = useState(initCurrentUser);
+  const [newUser, setNewUser] = useState({});
   // const [showCreateBtn,setShowCreateBtn] = useState(true);
   const [editing, setEdit] = useState(false);
   const [rates, setRates] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const [data, setData] = useState();
+  const [aangList, setAangList] = useState([]);
+  const [filter, setFilter] = useState({});
+  const [selectedSector, setSelectedSector] = useState("");
+  const [sectorList, setSectorList] = useState([]);
 
   const handleClose = () => {
     setShow(false);
@@ -107,7 +113,7 @@ const WorkerPage = ({ heading }) => {
     }
   };
 
-  const onFormSubmit = async (newUser) => {
+  const onFormSubmit = async () => {
     // check if fields are empty
     if (
       newUser.fName == "" ||
@@ -126,6 +132,11 @@ const WorkerPage = ({ heading }) => {
       data: newUser,
     });
     console.log(res);
+    if (res.status == 200) {
+      setUsers([...users, newUser]);
+      handleClose();
+      fetchWorkers();
+    }
   };
 
   const onEdit = (newUser) => {
@@ -136,24 +147,67 @@ const WorkerPage = ({ heading }) => {
     }
   };
 
-  const onSubmit = (newUser) => {
+  const onSubmit = () => {
     if (editing === true) {
-      onUpdateUser(newUser);
+      onUpdateUser();
     } else {
-      onFormSubmit(newUser);
+      onFormSubmit();
     }
   };
 
-  const onUpdateUser = (newUser) => {
+  const onUpdateUser = async () => {
     setEdit(false);
-    let id = newUser.id;
-    setUsers(users.map((i) => (i.id === id ? newUser : i)));
+    const res = await axiosFetch({
+      url: "/worker/" + newUser._id,
+      method: "patch",
+      data: newUser,
+    });
+    console.log(res.data);
   };
 
   const onDeleteUser = (currentUser) => {
     setUsers(users.filter((i) => i.id !== currentUser.id));
   };
 
+  const fetchWorkers = async () => {
+    const { data } = await axiosFetch({
+      url: "/worker",
+      method: "get",
+    });
+    setData(data);
+  };
+
+  const fetchAanganwadis = async () => {
+    const res = await axiosFetch({
+      url: `/aanganwadi/?filter=` + JSON.stringify(filter),
+      method: "get",
+    });
+
+    console.log(res);
+    if (res.status == 200) {
+      setAangList(res.data);
+      if (res.data.length > sectorList.length) {
+        let secs = [];
+        res.data.map((i) => {
+          if (!secs.includes(i.sector) && !sectorList.includes(i.sector)) {
+            secs.push(i.sector);
+          }
+        });
+
+        setSectorList(secs);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchWorkers();
+    fetchAanganwadis();
+  }, []);
+
+  useEffect(() => {
+    fetchAanganwadis();
+  }, [selectedSector]);
+  console.log(data);
   return (
     <Container fluid="md">
       <Row>
@@ -187,8 +241,8 @@ const WorkerPage = ({ heading }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.length > 0 ? (
-                    users.map((user, index) => (
+                  {data ? (
+                    data.map((user, index) => (
                       <tr key={index}>
                         <td>{user.fName}</td>
                         <td>{user.lName}</td>
@@ -298,9 +352,9 @@ const WorkerPage = ({ heading }) => {
                     }
                   >
                     <option>Select Role</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option value="adminStaff">Admin Staff</option>
+                    <option value="zonalOfficer">Zonal Officer</option>
+                    <option value="manager">Manager</option>
                   </Form.Select>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicSector">
@@ -309,7 +363,7 @@ const WorkerPage = ({ heading }) => {
                     aria-label="Default select example"
                     value={newUser.sector}
                     onChange={(e) =>
-                      setNewUser({ ...newUser, sector: e.target.sector })
+                      setNewUser({ ...newUser, sector: e.target.value })
                     }
                   >
                     <option>Select Sector</option>
@@ -348,8 +402,37 @@ const WorkerPage = ({ heading }) => {
                   controlId="formBasicLinkedAAnganwadi"
                 >
                   <Form.Label>Linked Aanganwadi</Form.Label>
-                  <Form.Control
-                    type="text"
+                  <Row sm={3}>
+                    <Col></Col>
+                    <Col></Col>
+                    <Col>
+                      <Form.Select
+                        style={{ marginBottom: "10px" }}
+                        value={selectedSector}
+                        onChange={(e) => {
+                          setSelectedSector(e.target.value);
+                          if (e.target.value === "All") {
+                            setFilter((prev) => {
+                              delete prev.sector;
+                              return prev;
+                            });
+                            return;
+                          }
+                          setFilter((prev) => ({
+                            ...prev,
+                            sector: e.target.value,
+                          }));
+                        }}
+                      >
+                        <option>Select Sector</option>
+                        <option value={"All"}>All</option>
+                        {sectorList.map((sector) => (
+                          <option value={sector}>{sector}</option>
+                        ))}
+                      </Form.Select>
+                    </Col>
+                  </Row>
+                  <Form.Select
                     value={newUser.linkedAanganwadi}
                     onChange={(e) =>
                       setNewUser({
@@ -357,8 +440,16 @@ const WorkerPage = ({ heading }) => {
                         linkedAanganwadi: e.target.value,
                       })
                     }
-                    placeholder="Enter Linked Aanganwadi"
-                  />
+                  >
+                    <option value="">Select</option>
+                    {aangList.length
+                      ? aangList.map((val, index) => (
+                          <option key={index} value={val._id}>
+                            Sector: {val.sector} , Manager: {val.manager}
+                          </option>
+                        ))
+                      : null}
+                  </Form.Select>
                 </Form.Group>
                 {/* <Form.Group className="mb-3">
                                         <Form.Label>Address</Form.Label>
@@ -392,7 +483,7 @@ const WorkerPage = ({ heading }) => {
                     variant="primary"
                     disabled={!newUser.fName}
                     type="submit"
-                    onClick={handleClose}
+                    onClick={onSubmit}
                   >
                     Submit
                   </Button>

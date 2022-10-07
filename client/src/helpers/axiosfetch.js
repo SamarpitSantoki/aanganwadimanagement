@@ -12,10 +12,14 @@ const axiosFetch = async ({
   //api to fetch data from postman mock server
   try {
     // axios.get("dsa", {});
+    const token = JSON.parse(sessionStorage.getItem("user")).token;
     const response = await axios.request({
       url: import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL + url,
       method,
       data: data,
+      headers: {
+        Authorization: token ? `Bearer ${token}` : "",
+      },
     });
     return response;
   } catch (err) {

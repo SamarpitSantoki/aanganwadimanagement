@@ -32,7 +32,8 @@ const Login = () => {
         setShowToast(true);
         return;
       }
-      sessionStorage.setItem("user", res.data);
+      sessionStorage.setItem("user", JSON.stringify(res.data));
+
       navigate("/aanganwadi");
       console.log(res);
     } catch (err) {

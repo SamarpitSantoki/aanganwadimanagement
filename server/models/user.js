@@ -32,10 +32,10 @@ const UserSchema = new Schema({
   },
   phoneNumber: {
     type: Number,
-    require: true
+    require: true,
   },
   linkedAanganwadi: {
-    type: [mongoose.Types.ObjectId],
+    type: mongoose.Types.ObjectId,
   },
 });
 

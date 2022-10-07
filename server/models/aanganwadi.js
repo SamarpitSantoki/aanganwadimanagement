@@ -9,7 +9,6 @@ const AanganwadiSchema = new Schema({
   workers: [
     {
       type: mongoose.Types.ObjectId,
-      require: true,
     },
   ],
   stock: [
