@@ -7,14 +7,12 @@ import styles from "./LoginForm.module.css";
 const Login = () => {
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState(null);
+  const [Email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState(null);
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (!username || !password) {
-      setToastMessage("Please enter username and password");
+    if (!Email || !password) {
       setShowToast(true);
       return;
     }
@@ -23,21 +21,20 @@ const Login = () => {
         url: "/auth/login",
         method: "POST",
         data: {
-          email: username,
+          email: Email,
           password,
         },
       });
-      if (res.status ? res.status !== 200 : res.request.status !== 200) {
-        setToastMessage(res.response.statusText);
+      if (res.status !== 200) {
         setShowToast(true);
         return;
       }
+      console.log("sadasd");
       sessionStorage.setItem("user", JSON.stringify(res.data));
 
       navigate("/aanganwadi");
       console.log(res);
     } catch (err) {
-      toastMessage(err.message);
       setShowToast(true);
     }
     // navigate("/home");
@@ -45,29 +42,17 @@ const Login = () => {
 
   return (
     <div className={styles.container}>
-      <ToastContainer position="bottom-end">
-        <Toast
-          autohide
-          show={showToast}
-          onClose={() => setShowToast((prev) => !prev)}
-        >
-          <ToastHeader>
-            <strong className="me-auto">Sign In</strong>
-          </ToastHeader>
-          <ToastBody>{toastMessage}</ToastBody>
-        </Toast>
-      </ToastContainer>
       <form className={styles.form}>
         <div className={styles.content}>
           <h3 className={styles.title}>Sign In</h3>
           <div className="form-group mt-3">
-            <label>Username</label>
+            <label>Email</label>
             <input
               type="text"
               className="form-control mt-1"
-              placeholder="Enter username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter Email"
+              value={Email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="form-group mt-3">

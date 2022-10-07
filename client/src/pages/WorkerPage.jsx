@@ -159,7 +159,7 @@ const WorkerPage = ({ heading }) => {
     setEdit(false);
     const res = await axiosFetch({
       url: "/worker/" + newUser._id,
-      method: "patch",
+      method: "put",
       data: newUser,
     });
     console.log(res.data);

@@ -16,11 +16,13 @@ const Login = async (req, res) => {
         }, process.env.JWT_SECRET, {
           expiresIn: 86400
         });
-    
-        res.json({
-          token:token,
-          message:"login succesfuly"
-        })
+        return res.send({
+          token: token,
+          name: exists.name,
+          email: exists.email,
+          message: "login succesfuly",
+        });
+
       } else {
         res.status(400).send({
           message: "Wrong UserName or Password",

@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 const connectDB = require("./database/conn");
 const aanganwadi =require("./routes/aanganwadi.route")
 const aanganwadiresource =require("./routes/resource.route")
-connectDB();
+  connectDB();
 
 //APIS FOR AUTH
 //http://localhost:3000/auth/login
