@@ -27,22 +27,16 @@ const GetAanganwadiListFilter = async (req, res) => {
     //this fields will come from frontend use User Schema to save this
     //query db for any existing email id reject if email exists
     // LinkedAanganwadi is an array of id's
-    const {
-      username,
-      manager,
-      address,
-      sector,
-      phoneNumber,
-      contactPerson
-    } = req.body;
+    const { manager, address, sector, phoneNumber, contactPerson } =
+      req.body;
   
-    const exists = await Aanganwadi.findOne({username});
-    if (exists) {
-      res.status(404).send({ message: "User Already Found" });
+    // const exists = await Aanganwadi.findOne({username});
+    // if (exists) {
+      // res.status(404).send({ message: "User Already Found" });
     
-    } else {  
+    // } else {  
       const user = new Aanganwadi({
-        username,
+       
       manager,
       address,
       sector,
@@ -53,7 +47,7 @@ const GetAanganwadiListFilter = async (req, res) => {
     
       res.status(200).send("Aanganwadi Register Successfully");
     };
-    }
+    // }
   
   
   module.exports = { CreateAanganwadi, GetAanganwadiList,GetAanganwadiListFilter };

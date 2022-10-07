@@ -1,19 +1,25 @@
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken')
+
 const Auth = require("../models/auth");
 const User = require("../models/user");
 
 const Login = async (req, res) => {
-  const { username, password } = req.body;
-  const exists = await Auth.findOne({ username });
+  const { email, password } = req.body;
+  const exists = await Auth.findOne({ email });
   if (exists) {
     const isPasswordValid = await bcrypt.compare(password, exists.password);
     if (isPasswordValid) {
-      res.json({
-        _id: user.id,
-        name: user.name,
-        email: user.email,
-        token: generateToken(user._id),
+      var token = jwt.sign({
+        id: email
+      }, process.env.JWT_SECRET, {
+        expiresIn: 86400
       });
+  
+      res.json({
+        token:token,
+        message:"login succesfuly"
+      })
     } else {
       res.status(400).send({
         message: "Wrong UserName or Password",
