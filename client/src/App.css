@@ -1,0 +1,15 @@
+.logo{
+display: flex;
+flex-direction: column;
+justify-content: center;
+background-color: rgb(100, 100, 232);
+align-items: center;
+}
+
+.img-logo {
+  filter: invert(100%);
+}
+
+.gov {
+   color: whitesmoke;
+ }
