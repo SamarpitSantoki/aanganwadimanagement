@@ -12,6 +12,9 @@ import {
 // import { Toggle } from "rsuite";
 import "../../App.css";
 import { FaPencilAlt,FaPlus,FaTrashAlt } from "react-icons/fa";
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const AanganwadiList
     = () => {
@@ -99,7 +102,7 @@ const AanganwadiList
                   <Card.Body>
                     <div className="d-flex justify-content-between customCardBody">
                       <div>
-                        <Card.Title>Aanganwadi Data</Card.Title>
+                        <Card.Title>Aanganwadi Data </Card.Title>
                       </div>
                       <div className="d-flex">
                         <Button
@@ -111,6 +114,22 @@ const AanganwadiList
                         </Button>
                       </div>
                     </div>
+                                {['Sector','Manager'].map(
+                                    (variant) => (
+                                        <DropdownButton
+                                            color="maincolor"
+                                            as={ButtonGroup}
+                                            key={variant}
+                                            id={`dropdown-variants-${variant}`}
+                                            variant={variant.toLowerCase()}
+                                            title={variant}
+                                        >
+                                            <Dropdown.Item eventKey="1">Abc</Dropdown.Item>
+                                            <Dropdown.Item eventKey="2">Def</Dropdown.Item>
+                                            <Dropdown.Item eventKey="3">Abcd</Dropdown.Item>
+                                        </DropdownButton>
+                                    ),
+                                )}
                     <Table
                       striped
                       bordered

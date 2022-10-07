@@ -11,6 +11,9 @@ import {
 } from "react-bootstrap";
 import "../../App.css";
 import { FaPencilAlt, FaPlus, FaTrashAlt } from "react-icons/fa";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 const UserList = ({ heading }) => {
   const defaultUsers = [
@@ -157,6 +160,20 @@ const UserList = ({ heading }) => {
                   </Button>
                 </div>
               </div>
+              {["Sector"].map((variant) => (
+                <DropdownButton
+                  color="maincolor"
+                  as={ButtonGroup}
+                  key={variant}
+                  id={`dropdown-variants-${variant}`}
+                  variant={variant.toLowerCase()}
+                  title={variant}
+                >
+                  <Dropdown.Item eventKey="1">Abc</Dropdown.Item>
+                  <Dropdown.Item eventKey="2">Def</Dropdown.Item>
+                  <Dropdown.Item eventKey="3">Abcd</Dropdown.Item>
+                </DropdownButton>
+              ))}
               <Table striped bordered hover variant="light" className="m-2">
                 <thead>
                   <tr>
