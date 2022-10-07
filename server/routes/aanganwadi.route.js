@@ -3,7 +3,7 @@ const router = express.Router();
 const { CreateAanganwadi,GetAanganwadiList} = require("../controllers/aanganwadi.controller");
 const {verifyUserToken}= require('../middleware/Auth');
 
-router.post("/", CreateAanganwadi);
+router.post("/",verifyUserToken,CreateAanganwadi);
 router.get("/",verifyUserToken,GetAanganwadiList);
 
 

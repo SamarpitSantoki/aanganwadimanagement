@@ -2,13 +2,12 @@ const Aanganwadi= require("../models/aanganwadi");
 
 const GetAanganwadiList = async (req, res) => {
   try {
-    
-    const {username}=req.body;
+  
     const {filter} = req.query
-    const filters = JSON.parse(filter)
+    // const filters = JSON.parse(filter)
       
     
-    const exists = await Aanganwadi.find(filters || {});
+    const exists = await Aanganwadi.find(filter || {});
       res.status(200).send(exists);
   } catch (error) {
     res.status(500).send(error);
@@ -49,5 +48,5 @@ const GetAanganwadiList = async (req, res) => {
     // }
   
   
-  module.exports = { CreateAanganwadi, GetAanganwadiList,GetAanganwadiListFilter };
+  module.exports = { CreateAanganwadi, GetAanganwadiList };
   
