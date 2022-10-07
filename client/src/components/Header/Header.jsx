@@ -7,11 +7,6 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <>
-      {/* <div className={styles.container}>
-        <div className={styles.heading}>
-          <img src=""></img>
-        </div>
-      </div> */}
       <div className={style.container1}>
         <div className={style.left}>
           <Link to={"/adminstaff"}>
@@ -33,7 +28,6 @@ const Header = () => {
             <button>Profile</button>
           </Link>
         </div>
-             <button className={style.right}>Logout</button>
       </div>
     </>
   );
