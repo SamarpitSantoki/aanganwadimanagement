@@ -15,8 +15,16 @@ const GetAanganwadiList = async (req, res) => {
 
 const CreateAanganwadi = async (req, res) => {
   try {
-    const { manager, address, sector, phoneNumber, contactPerson } = req.body;
+    const {
+      aanganwadiname,
+      manager,
+      address,
+      sector,
+      phoneNumber,
+      contactPerson,
+    } = req.body;
     const user = new Aanganwadi({
+      aanganwadiname,
       manager,
       address,
       sector,
@@ -41,8 +49,33 @@ const CreateAanganwadi = async (req, res) => {
   // } else {
 };
 // }
+const updateaanganwadi = async (req, res) => {
+  const updateaanganwadi = await Aanganwadi.findOneAndUpdate(
+    { aanganwadiname: req.params.aanganwadiname },
+    {
+      $set: req.body,
+    },
+    { new: true }
+  );
+  if (updateaanganwadi) {
+    res.status(200).send(updateaanganwadi);
+  } else {
+    res.status(404).json({
+      message: "name not found",
+    });
+  }
+};
+const deleteaanganwadi = async (req, res) => {
+  const { aanganwadiname } = req.params.aanganwadiname;
+  const exists = await Aanganwadi.findOneAndDelete(aanganwadiname);
+  res.status(200).json({
+    message: "deleted successfully",
+  });
+};
 
 module.exports = {
   CreateAanganwadi,
   GetAanganwadiList,
+  deleteaanganwadi,
+  updateaanganwadi,
 };
