@@ -3,6 +3,8 @@ import {
     Button,
     Container,
     Card,
+    Form,
+    Modal,
     Col,
     Row,
     Table,
@@ -10,23 +12,75 @@ import {
 // import { Toggle } from "rsuite";
 import "../../App.css";
 import { FaPencilAlt,FaPlus,FaTrashAlt } from "react-icons/fa";
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+
 
 const StockShow = () => {
 
-    const defaultAanganwadis = [
+    const defaultStocks = [
         {
-            Item: "A",
-            Quantity: "5",
+            resource: "A",
+            quantity: "5",
             
         },
         {
-            Item: "B",
-            Quantity: "4",
+            resource: "B",
+            quantity: "4",
         },
     ];
+
+    const initCurrentStock = {
+        resource: "",
+        quantity: "",
+       
+    }
+    const [stocks,setStocks] = useState(defaultStocks);
+    const [show,setShow] = useState(false);
+    const [newStock,setNewStock] = useState(initCurrentStock);
+    // const [showCreateBtn,setShowCreateBtn] = useState(true);
+    const [editing,setEdit] = useState(false);
+    const [rates,setRates] = useState([1,2,3,4,5,6,7,8,9,10]);
+
+    const handleClose = () => {
+        setShow(false);
+    };
+    const handleShow = () => {
+        setShow(true);
+        if(editing == false) {
+            setNewStock(initCurrentStock);
+        }
+    };
+
+    const onFormSubmit = (newStock) => {
+        const id = stocks.length + 1;
+        setStocks([...stocks,{ ...newStock,id }]);
+    };
+
+    const onEdit = (newStock) => {
+        setEdit(true);
+        if(editing == true) {
+            setNewStock({ ...newStock,newStock });
+            handleShow();
+        }
+
+    };
+
+    const onSubmit = (newStock) => {
+        if(editing === true) {
+            onUpdateStock(newStock);
+        } else {
+            onFormSubmit(newStock);
+        }
+    };
+
+    const onUpdateStock = (newStock) => {
+        setEdit(false);
+        let id = newStock.id;
+        setStocks(stocks.map((i) => (i.id === id ? newStock : i)));
+    };
+
+    const onDeleteStock = (currentStock) => {
+        setStocks(stocks.filter((i) => i.id !== currentStock.id));
+    };
 
     return (
         <Container fluid="md mt-5">
@@ -41,29 +95,13 @@ const StockShow = () => {
                                 <div className="d-flex">
                                     <Button
                                         variant="maincolor"
-                                        // onClick={handleShow}
-                                        title="Add Aanganwadi"
+                                        onClick={handleShow}
+                                        title="Add Stock"
                                     >
                                         <FaPlus color="white" />
                                     </Button>
                                 </div>
                             </div>
-                            {['Sector','Manager'].map(
-                                (variant) => (
-                                    <DropdownButton
-                                        color="maincolor"
-                                        as={ButtonGroup}
-                                        key={variant}
-                                        id={`dropdown-variants-${variant}`}
-                                        variant={variant.toLowerCase()}
-                                        title={variant}
-                                    >
-                                        <Dropdown.Item eventKey="1">Abc</Dropdown.Item>
-                                        <Dropdown.Item eventKey="2">Def</Dropdown.Item>
-                                        <Dropdown.Item eventKey="3">Abcd</Dropdown.Item>
-                                    </DropdownButton>
-                                ),
-                            )}
                             <Table
                                 striped
                                 bordered
@@ -73,37 +111,29 @@ const StockShow = () => {
                             >
                                 <thead>
                                     <tr>
-                                        <th>Manager</th>
-                                        <th>Workers</th>
-                                        <th>Sector</th>
-                                        <th>Phone</th>
-                                        <th>Contact Person</th>
-                                        <th>ResourceNeeded</th>
+                                        <th>Resource</th>
+                                        <th>Quantity</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {aanganwadis.length > 0 ? (
-                                        aanganwadis.map((aanganwadi,index) => (
+                                    {stocks.length > 0 ? (
+                                        stocks.map((stock,index) => (
                                             <tr key={index}>
-                                                <td>{aanganwadi.manager}</td>
-                                                <td>{aanganwadi.workers}</td>
-                                                <td>{aanganwadi.sector}</td>
-                                                <td>{aanganwadi.phoneNumber}</td>
-                                                <td>{aanganwadi.contactPerson}</td>
-                                                <td>{aanganwadi.resourceNeeded}</td>
+                                                <td>{stock.resource}</td>
+                                                <td>{stock.quantity}</td>
                                                 <td>
                                                     <Button
                                                         variant="maincolor"
-                                                        title="Edit aanganwadi details"
-                                                        onClick={() => onEdit(aanganwadi)}
+                                                        title="Edit stock details"
+                                                        onClick={() => onEdit(stock)}
                                                     >
                                                         <FaPencilAlt />
                                                     </Button>{" "}
                                                     <Button
                                                         variant="danger"
-                                                        title="Delete aanganwadi"
-                                                        onClick={() => onDeleteAanganwadi(aanganwadi)}
+                                                        title="Delete stock"
+                                                        onClick={() => onDeleteStock(stock)}
                                                     >
                                                         <FaTrashAlt />
                                                     </Button>
@@ -113,7 +143,7 @@ const StockShow = () => {
                                     ) : (
                                         <tr>
                                             <td colSpan={6} className="text-center">
-                                                No aanganwadis found.
+                                                No stocks found.
                                             </td>
                                         </tr>
                                     )}
@@ -121,6 +151,79 @@ const StockShow = () => {
                             </Table>
                         </Card.Body>
                     </Card>
+                    <Modal size="lg" show={show} onHide={handleClose}>
+                        <Form
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                onSubmit(newStock);
+                            }}
+                        >
+                            <Modal.Header closeButton>
+                                {editing == true ? (
+                                    <Modal.Title>Edit Resource</Modal.Title>
+                                ) : (
+                                    <Modal.Title>Add Resource</Modal.Title>
+                                )}
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Form.Group
+                                    className="mb-3"
+                                    controlId="formBasicfResource"
+                                >
+                                    <Form.Label>Resource</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        value={newStock.resource}
+                                        required
+                                        onChange={(e) =>
+                                            setNewStock({
+                                                ...newStock,
+                                                resource: e.target.value,
+                                            })
+                                        }
+                                        placeholder="Enter Resource Name"
+                                    />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicQuantity">
+                                    <Form.Label>Quantity</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        value={newStock.quantity}
+                                        onChange={(e) =>
+                                            setNewStock({
+                                                ...newStock,
+                                                quantity: e.target.value,
+                                            })
+                                        }
+                                        placeholder="Enter Quantity"
+                                    />
+                                </Form.Group>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClose}>
+                                    Close
+                                </Button>
+                                {editing === true ? (
+                                    <Button
+                                        variant="primary"
+                                        type="submit"
+                                        onClick={handleClose}
+                                    >
+                                        Update
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        variant="primary"
+                                        disabled={!newStock.name}
+                                        type="submit"
+                                        onClick={handleClose}
+                                    >
+                                        Submit
+                                    </Button>
+                                )}
+                            </Modal.Footer>
+                        </Form>
+                    </Modal>
                 </Col>
             </Row>
         </Container>
