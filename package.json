@@ -1,0 +1,25 @@
+{
+  "name": "aanganwadimanagement",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000a\u0000a\u0000n\u0000g\u0000a\u0000n\u0000w\u0000a\u0000d\u0000i\u0000m\u0000a\u0000n\u0000a\u0000g\u0000e\u0000m\u0000e\u0000n\u0000t\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd client && npm i && npm run build",
+    "server": "cd server && npm i && npm run start",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "dev-client": "cd client && yarn dev",
+    "dev-server": "cd server && npm run start",
+    "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samarpitsantoki/aanganwadimanagement.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samarpitsantoki/aanganwadimanagement/issues"
+  },
+  "homepage": "https://github.com/samarpitsantoki/aanganwadimanagement#readme"
+}
