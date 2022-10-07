@@ -61,6 +61,7 @@ function Nav() {
           <button>+A</button>
           <button>A</button>
           <button>-A</button>
+          <button>Logout</button>
         </div>
       </div>
       <div className="logo">
