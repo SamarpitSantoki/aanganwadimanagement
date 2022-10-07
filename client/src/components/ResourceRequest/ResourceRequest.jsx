@@ -5,6 +5,7 @@ import {
     Card,
     Form,
     Modal,
+
     Col,
     Row,
     Table,
@@ -12,6 +13,7 @@ import {
 // import { Toggle } from "rsuite";
 import "../../App.css";
 import { FaPencilAlt,FaPlus,FaTrashAlt } from "react-icons/fa";
+import { HiEye } from "react-icons/hi"
 
 
 const ResourceRequest = () => {
@@ -19,26 +21,42 @@ const ResourceRequest = () => {
     const defaultreqs = [
         {
             resource: "A",
-            quantity: "5",
+            aanganwadi: "5",
+            manager: "A",
+            phone: "9999999999",
+            sector: "Abc"
             
         },
         {
             resource: "B",
-            quantity: "4",
+            aanganwadi: "4",
+            manager: "A",
+            phone: "9999999999",
+            sector: "Abc"
         },
     ];
 
+    // const showReqDetails = {
+
+    // }
+
     const initCurrentreq = {
         resource: "",
-        quantity: "",
+        aanganwadi: "",
        
     }
     const [reqs,setreqs] = useState(defaultreqs);
     const [show,setShow] = useState(false);
     const [newreq,setNewreq] = useState(initCurrentreq);
+    // const [details,showReqDetails] = useState(showDetails);
     // const [showCreateBtn,setShowCreateBtn] = useState(true);
     const [editing,setEdit] = useState(false);
     const [rates,setRates] = useState([1,2,3,4,5,6,7,8,9,10]);
+
+    const [show1,setShow1] = useState(false);
+
+    const handleClose1 = () => setShow1(false);
+    const handleShow1 = () => setShow1(true);
 
     const handleClose = () => {
         setShow(false);
@@ -47,6 +65,13 @@ const ResourceRequest = () => {
         setShow(true);
         if(editing == false) {
             setNewreq(initCurrentreq);
+        }
+    };
+
+    const handleView = () => {
+        setShow(true);
+        if(editing == false) {
+            showReqDetails();
         }
     };
 
@@ -103,7 +128,8 @@ const ResourceRequest = () => {
                                 <thead>
                                     <tr>
                                         <th>Resource</th>
-                                        <th>Quantity</th>
+                                        <th>Aanganwadi</th>
+                                        <th>Manager</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -112,7 +138,8 @@ const ResourceRequest = () => {
                                         reqs.map((req,index) => (
                                             <tr key={index}>
                                                 <td>{req.resource}</td>
-                                                <td>{req.quantity}</td>
+                                                <td>{req.aanganwadi}</td>
+                                                <td>{req.manager}</td>
                                                 <td>
                                                     <Button
                                                         variant="maincolor"
@@ -128,6 +155,9 @@ const ResourceRequest = () => {
                                                     >
                                                         <FaTrashAlt />
                                                     </Button>
+                                                    <Button variant="maincolor" onClick={handleShow1} title="Request Details">
+                                                        <HiEye color="white" />
+                                                    </Button>
                                                 </td>
                                             </tr>
                                         ))
@@ -142,6 +172,68 @@ const ResourceRequest = () => {
                             </Table>
                         </Card.Body>
                     </Card>
+                    <Modal
+                    size="lg"
+                        show={show1}
+                        onHide={handleClose1}
+                        backdrop="static"
+                        keyboard={false}
+                        aria-labelledby="contained-modal-title-vcenter"
+                        centered
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title>Request Deatails of Aanganwadi</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Table
+                                striped
+                                bordered
+                                hover
+                                variant="light"
+                                className="m-2"
+                            >
+                                <thead>
+                                    <tr>
+                                        <th>Resource Requested</th>
+                                        <th>Quantity</th>
+                                        <th>Manager</th>
+                                        <th>Phone</th>
+                                        <th>Sector</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {reqs.length > 0 ? (
+                                        reqs.map((req,index) => (
+                                            <tr key={index}>
+                                                <td>{req.resource}</td>
+                                                <td>{req.aanganwadi}</td>
+                                                <td>{req.manager}</td>
+                                                <td>{req.phone}</td>
+                                                <td>
+                                                    {req.sector}
+                                                </td>
+
+                                                
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td colSpan={6} className="text-center">
+                                                No reqs found.
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </Table>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="danger" onClick={handleClose}>
+                                Decline
+                            </Button>
+                            <Button variant="maincolor">Approve</Button>
+                        </Modal.Footer>
+                    </Modal>
                     <Modal size="lg" show={show} onHide={handleClose}>
                         <Form
                             onSubmit={(e) => {
@@ -179,11 +271,11 @@ const ResourceRequest = () => {
                                     <Form.Label>Quantity</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        value={newreq.quantity}
+                                        value={newreq.aanganwadi}
                                         onChange={(e) =>
                                             setNewreq({
                                                 ...newreq,
-                                                quantity: e.target.value,
+                                                aanganwadi: e.target.value,
                                             })
                                         }
                                         placeholder="Enter Quantity"
