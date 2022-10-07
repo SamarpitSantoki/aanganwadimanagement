@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 
 const connectDB = require("./database/conn");
 const aanganwadi =require("./routes/aanganwadi.route")
+const aanganwadiresource =require("./routes/resource req")
 connectDB();
 
 //APIS FOR AUTH
@@ -23,6 +24,7 @@ app.use("/worker", Worker);
 
 //APIS FOR REGISTER WORKER
 app.use("/aanganwadi", aanganwadi);
+app.use("/resource", aanganwadiresource);
 
 //create api login using database
 
