@@ -162,6 +162,7 @@ const WorkerPage = ({ heading }) => {
       method: "put",
       data: newUser,
     });
+    fetchWorkers();
     console.log(res.data);
   };
 
