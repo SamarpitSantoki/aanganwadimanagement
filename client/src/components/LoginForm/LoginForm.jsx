@@ -23,7 +23,7 @@ const Login = () => {
         url: "/auth/login",
         method: "POST",
         data: {
-          username,
+          email: username,
           password,
         },
       });
@@ -32,7 +32,7 @@ const Login = () => {
         setShowToast(true);
         return;
       }
-      sessionStorage.setItem("username", res.data.username);
+      sessionStorage.setItem("user", res.data);
       navigate("/aanganwadi");
       console.log(res);
     } catch (err) {

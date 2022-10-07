@@ -19,6 +19,7 @@ function index() {
         />
         <Route path="/worker" element={<WorkerPage heading={"Workers"} />} />
         <Route path="/aanganwadi" element={<AanganwadiList />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );

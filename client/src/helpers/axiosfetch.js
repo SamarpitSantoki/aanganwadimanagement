@@ -16,10 +16,6 @@ const axiosFetch = async ({
       url: import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL + url,
       method,
       data: data,
-      headers: {
-        ...headers,
-        Authorization: token ? `Bearer ${token}` : "",
-      },
     });
     return response;
   } catch (err) {

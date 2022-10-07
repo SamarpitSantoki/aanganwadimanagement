@@ -3,10 +3,13 @@ import styles from "../Header/Nav.module.css";
 import Moment from "moment";
 import axios from "axios";
 import { FiCalendar } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const date = Moment().format("llll");
 function Nav() {
+  const navigate = useNavigate();
   const [lan, setLan] = useState("en");
+  const user = sessionStorage.getItem("user");
   const googleTranslateElementInit = () => {
     new window.google.translate.TranslateElement(
       {
@@ -14,6 +17,16 @@ function Nav() {
       },
       "google_translate_element"
     );
+  };
+
+  const handleClick = (e) => {
+    document.cookie = "googtrans=" + e;
+    location.reload();
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("user");
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -29,10 +42,6 @@ function Nav() {
       };
     }
   }, []);
-  const handleClick = (e) => {
-    document.cookie = "googtrans=" + e;
-    location.reload();
-  };
   return (
     <>
       <div className={styles.container}>
@@ -61,7 +70,7 @@ function Nav() {
           <button>+A</button>
           <button>A</button>
           <button>-A</button>
-          <button>Logout</button>
+          {user && <button onClick={handleLogout}>Logout</button>}
         </div>
       </div>
       <div className="logo">

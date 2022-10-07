@@ -9,35 +9,36 @@ const Regiter = async(req, res) => {
   //query db for any existing email id reject if email exists
   // LinkedAanganwadi is an array of id's
   const {
-    fname,
-    lname,
-    mname,
+    fName,
+    lName,
+    mName,
     email,
     role,
     sector,
     address,
     phoneNumber,
-    LinkedAanganwadi,
+    linkedAanganwadi,
   } = req.body;
+  console.log(req.body, "check");
+  // check for the required fields to be non empty
 
   const exists = await User.findOne({ email });
   if (exists) {
     res.status(404).send({ message: "User already Found" });
-  
   } else {
     const user = new User({
-      fname,
-      lname,
-      mname,
+      fName,
+      lName,
+      mName,
       email,
       role,
       sector,
       address,
       phoneNumber,
-      LinkedAanganwadi,
+      linkedAanganwadi,
     });
     await user.save();
-  
+
     res.send("register worker");
   };
   }

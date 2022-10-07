@@ -1,17 +1,16 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import {
-    Button,
-    Card,
-    Col,
-    Container,
-    Form,
-    Modal,
-    Row,
-    Table,
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  Modal,
+  Row,
+  Table,
 } from "react-bootstrap";
-import { Toggle } from "rsuite";
 import "../../App.css";
-import { FaPencilAlt,FaPlus,FaTrashAlt } from "react-icons/fa";
+import { FaPencilAlt, FaPlus, FaTrashAlt } from "react-icons/fa";
 
 const UserList = ({ heading }) => {
   const defaultUsers = [
@@ -32,53 +31,53 @@ const UserList = ({ heading }) => {
       linkedAanganwadi: "B",
     },
     {
-          fName: "Parth",
-          lName: "Trivedi",
-          email: "abcd@gmail.com",
-          sector: "B",
-          phoneNumber: "7777777777",
-          linkedAanganwadi: "BA",
+      fName: "Parth",
+      lName: "Trivedi",
+      email: "abcd@gmail.com",
+      sector: "B",
+      phoneNumber: "7777777777",
+      linkedAanganwadi: "BA",
     },
-      {
-          fName: "Shubham",
-          lName: "Rupapara",
-          email: "abcdef@gmail.com",
-          sector: "C",
-          phoneNumber: "6666666666",
-          linkedAanganwadi: "C",
-      },
-      {
-          fName: "Vivek",
-          lName: "kakadiya",
-          email: "xyz@gmail.com",
-          sector: "D",
-          phoneNumber: "5555555555",
-          linkedAanganwadi: "D",
-      },
-      {
-          fName: "Vivek",
-          lName: "kakadiya",
-          email: "xyz@gmail.com",
-          sector: "D",
-          phoneNumber: "5555555555",
-          linkedAanganwadi: "DA",
-      },
-      {
-          fName: "Jenish",
-          lName: "Gondaliya",
-          email: "pqr@gmail.com",
-          sector: "E",
-          phoneNumber: "4444444444",
-          linkedAanganwadi: "E",
-      },
-      {
-          fName: "Dhruvraj",
-          lName: "Gohil",
-          email: "def@gmail.com",
-          sector: "E",
-          phoneNumber: "4444444444",
-          linkedAanganwadi: "EA",
-      },
+    {
+      fName: "Shubham",
+      lName: "Rupapara",
+      email: "abcdef@gmail.com",
+      sector: "C",
+      phoneNumber: "6666666666",
+      linkedAanganwadi: "C",
+    },
+    {
+      fName: "Vivek",
+      lName: "kakadiya",
+      email: "xyz@gmail.com",
+      sector: "D",
+      phoneNumber: "5555555555",
+      linkedAanganwadi: "D",
+    },
+    {
+      fName: "Vivek",
+      lName: "kakadiya",
+      email: "xyz@gmail.com",
+      sector: "D",
+      phoneNumber: "5555555555",
+      linkedAanganwadi: "DA",
+    },
+    {
+      fName: "Jenish",
+      lName: "Gondaliya",
+      email: "pqr@gmail.com",
+      sector: "E",
+      phoneNumber: "4444444444",
+      linkedAanganwadi: "E",
+    },
+    {
+      fName: "Dhruvraj",
+      lName: "Gohil",
+      email: "def@gmail.com",
+      sector: "E",
+      phoneNumber: "4444444444",
+      linkedAanganwadi: "EA",
+    },
   ];
 
   const initCurrentUser = {

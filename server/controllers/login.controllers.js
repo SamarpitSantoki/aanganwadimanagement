@@ -9,7 +9,8 @@ const Login = async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, exists.password);
     if (isPasswordValid) {
       res.status(200).send({
-        username: exists.username,
+        email: exists.email,
+        name: exists.name,
       });
     } else {
       res.status(401).send({
