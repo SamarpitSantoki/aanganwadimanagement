@@ -1,41 +1,26 @@
 const Aanganwadi= require("../models/aanganwadi");
-// const connectDB = require("./database/conn");
 
 const GetAanganwadiList = async (req, res) => {
-  const {username}=req.body;
-  const exists = await Aanganwadi.find({ });
-    res.status(200).send(exists);
-};
-
-const GetAanganwadiListFilter = async (req, res) => {
   try {
-    const filters = req.query;
-    console.log(filters);
-    const filteredUsers = await Aanganwadi.find({filters})
-    console.log(filteredUsers);
-    res.status(200).send(filteredUsers);
     
+    const {username}=req.body;
+    const {filter} = req.query
+    const filters = JSON.parse(filter)
+      
+    
+    const exists = await Aanganwadi.find(filters || {});
+      res.status(200).send(exists);
   } catch (error) {
-    console.log(error);
+    res.status(500).send(error);
   }
-
 };
-  
+
   
   const CreateAanganwadi = async(req, res) => {
-   
-    //this fields will come from frontend use User Schema to save this
-    //query db for any existing email id reject if email exists
-    // LinkedAanganwadi is an array of id's
+   try {
     const { manager, address, sector, phoneNumber, contactPerson } =
-      req.body;
-  
-    // const exists = await Aanganwadi.findOne({username});
-    // if (exists) {
-      // res.status(404).send({ message: "User Already Found" });
-    
-    // } else {  
-      const user = new Aanganwadi({
+    req.body;
+    const user = new Aanganwadi({
        
       manager,
       address,
@@ -46,6 +31,20 @@ const GetAanganwadiListFilter = async (req, res) => {
       await user.save();
     
       res.status(200).send("Aanganwadi Register Successfully");
+   } catch (error) {
+      res.status(500).send(error);
+   }
+    
+    //this fields will come from frontend use User Schema to save this
+    //query db for any existing email id reject if email exists
+    // LinkedAanganwadi is an array of id's
+   
+    // const exists = await Aanganwadi.findOne({username});
+    // if (exists) {
+      // res.status(404).send({ message: "User Already Found" });
+    
+    // } else {  
+      
     };
     // }
   
