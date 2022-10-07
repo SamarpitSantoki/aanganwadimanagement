@@ -9,6 +9,16 @@ try {
   res.status(500).send(error);
 }
 };
+const GetWorker = async (req, res) => {
+try {
+  const { name } = req.params;
+  console.log(name);
+  const exists = await User.find({"fName" : {$regex : name}});
+  res.status(200).send(exists);
+} catch (error) {
+  res.status(500).send(error);
+}
+};
 
 const Register = async (req, res) => {
   //this fields will come from frontend use User Schema to save this
@@ -54,4 +64,4 @@ const Register = async (req, res) => {
   }
 };
 
-module.exports = { Register, GetWorkerList };
+module.exports = { Register, GetWorkerList ,GetWorker};
