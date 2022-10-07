@@ -1,4 +1,5 @@
 const Aanganwadi= require("../models/aanganwadi");
+// const connectDB = require("./database/conn");
 
 const GetAanganwadiList = async (req, res) => {
   const {username}=req.body;
@@ -7,17 +8,16 @@ const GetAanganwadiList = async (req, res) => {
 };
 
 const GetAanganwadiListFilter = async (req, res) => {
-  
+  try {
     const filters = req.query;
-    const filteredUsers = Aanganwadi.filter(user => {
-      let isValid = true;
-      for (key in filters) {
-        // console.log(key, user[key], filters[key]);
-        isValid = isValid && user[key] == filters[key];
-      }
-      return isValid;
-    });
-    res.send(filteredUsers);
+    console.log(filters);
+    const filteredUsers = await Aanganwadi.find({filters})
+    console.log(filteredUsers);
+    res.status(200).send(filteredUsers);
+    
+  } catch (error) {
+    console.log(error);
+  }
 
 };
   

@@ -2,22 +2,17 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const AanganwadiSchema = new Schema({
-   username: {
-     type: String,
-     unique: true,
-     require: true
-   },
+   
    manager: {
      type: String,
      require: true
    },
    workers: [{
-     type: String,
+     type: mongoose.Types.ObjectId,
      require: true
    }],  
    stock: [{
      type: String,
-     require: true
    }],  
    contactPerson: {
      type: String,
@@ -25,7 +20,8 @@ const AanganwadiSchema = new Schema({
    },
    resourceNeeded: {
       type: Boolean,
-      require: false
+      require: false,
+      default: false
    },
    sector: {
     type: String,
