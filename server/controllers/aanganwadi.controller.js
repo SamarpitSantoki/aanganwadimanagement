@@ -5,8 +5,10 @@ const GetAanganwadiList = async (req, res) => {
   
     // const filters = JSON.parse(filter)
       
-
-    const exists = await Aanganwadi.find(req.params.aanganwadiname || {});
+    const {filter} =req.query;
+    const filters = filter && JSON.parse(filter);
+    console.log("came here");
+    const exists = await Aanganwadi.find(filters ?? {}).exec();
       res.status(200).send(exists);
   } catch (error) {
     res.status(500).send(error);
