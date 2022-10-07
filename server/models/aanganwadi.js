@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const AanganwadiSchema = new Schema({
+  aanganwadiname:{
+      type:String,
+      required:true,
+      unique:true,
+  },
   manager: {
     type: String,
     require: true,

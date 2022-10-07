@@ -3,11 +3,10 @@ const Aanganwadi= require("../models/aanganwadi");
 const GetAanganwadiList = async (req, res) => {
   try {
   
-    const {filter} = req.query
     // const filters = JSON.parse(filter)
       
-    
-    const exists = await Aanganwadi.find(filter || {});
+
+    const exists = await Aanganwadi.find(req.params.aanganwadiname || {});
       res.status(200).send(exists);
   } catch (error) {
     res.status(500).send(error);
@@ -17,10 +16,10 @@ const GetAanganwadiList = async (req, res) => {
   
   const CreateAanganwadi = async(req, res) => {
    try {
-    const { manager, address, sector, phoneNumber, contactPerson } =
+    const { aanganwadiname,manager, address, sector, phoneNumber, contactPerson } =
     req.body;
     const user = new Aanganwadi({
-       
+      aanganwadiname,
       manager,
       address,
       sector,
@@ -33,7 +32,8 @@ const GetAanganwadiList = async (req, res) => {
    } catch (error) {
       res.status(500).send(error);
    }
-    
+   
+ 
     //this fields will come from frontend use User Schema to save this
     //query db for any existing email id reject if email exists
     // LinkedAanganwadi is an array of id's
@@ -46,7 +46,31 @@ const GetAanganwadiList = async (req, res) => {
       
     };
     // }
+    const updateaanganwadi = async (req, res) => {
+
+      const updateaanganwadi = await Aanganwadi.findOneAndUpdate(
+        {aanganwadiname:req.params.aanganwadiname},
+        {
+          $set: req.body,
+        },
+        { new: true }
+      );
+      if(updateaanganwadi)
+      {
+        res.status(200).send(updateaanganwadi);
+      }else{
+        res.status(404).json({
+        message:"name not found",
+    });
+    };
+  }
+    const deleteaanganwadi = async (req, res) => {
+      const { aanganwadiname } = req.params.aanganwadiname;
+      const exists = await Aanganwadi.findOneAndDelete(aanganwadiname);
+      res.status(200).json({
+        message:"deleted successfully",
+      })
+    };
   
-  
-  module.exports = { CreateAanganwadi, GetAanganwadiList };
+  module.exports = { CreateAanganwadi, GetAanganwadiList, deleteaanganwadi ,updateaanganwadi};
   

@@ -41,14 +41,27 @@ const deleteresource = async (req, res) => {
   })
 };
 const updatedresource = async (req, res) => {
-  const updatedresource = await Userresource.findOneAndUpdate(
-    req.params.aanganwadiId,
-    {
-      $set: req.body,
-    },
-    { new: true }
-  );
-  res.status(200).send(updatedresource);
+  try{
+    const updatedresource = await Userresource.findByIdAndUpdate(
+      req.params.aanganwadiId,
+      {
+        $set: req.body,
+      },
+      { new: true }
+      );
+  console.log(updatedresource);
+  if(updatedresource)
+  {
+    res.status(200).send(updatedresource);
+
+  }else{
+    res.status(404).json({
+      message:"id not found",
+    });
+  }
+} catch (e){
+  res.status(404).send(e)
+}
 };
 
 module.exports = { Getresource, addresource, deleteresource, updatedresource,Getallresource };
