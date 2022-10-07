@@ -2,27 +2,23 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ResourceSchema = new Schema({
-  username: {
+  
+  aanganwadiId: {
     type: String,
     unique: true,
     require: true
   },
-  aanganwadiId: {
-    type: int,
-    unique: true,
-    require: true
-  },
   workerId: {
-    type: int,
+    type: String,
     unique: true,
     require: true
   },
   requestedStock: {
-    type: int,
+    type: String,
     require: true
   },
   approvedStock: {
-    type: int,
+    type: String,
     require: true
   },
   status: {
@@ -30,9 +26,8 @@ const ResourceSchema = new Schema({
     require: true
   },
   approvedById: {
-    type: int,
-    require: true,
-    unique: true
+    type: String,
+    require: true
   }
 });
 
