@@ -1,8 +1,9 @@
 const Userresource = require("../models/resourceRequest");
 
 const Getresource = async (req, res) => {
-  const { resorceid } = req.params.resorceid;
-  const exists = await Userresource.findById(resorceid);
+  console.log(req.params);
+  const { aanganwadiId } = req.params.aanganwadiId;
+  const exists = await Userresource.find(aanganwadiId);
   res.status(200).send(exists);
 };
 const Getallresource = async (req, res) => {
@@ -12,7 +13,6 @@ const Getallresource = async (req, res) => {
 };
 const addresource = async (req, res) => {
   const {
-    username,
     aanganwadiId,
     workerId,
     requestedStock,
@@ -21,7 +21,6 @@ const addresource = async (req, res) => {
     approvedById,
   } = req.body;
   const user = new Userresource({
-    username,
     aanganwadiId,
     workerId,
     requestedStock,
@@ -35,13 +34,15 @@ const addresource = async (req, res) => {
 };
 
 const deleteresource = async (req, res) => {
-  const { resorceid } = req.params.resorceid;
-  const exists = await Userresource.findByIdAndDelete(resorceid);
-  res.status(200).send(exists);
+  const { aanganwadiId } = req.params.aanganwadiId;
+  const exists = await Userresource.findOneAndDelete(aanganwadiId);
+  res.status(200).json({
+    message:"deleted successfully",
+  })
 };
 const updatedresource = async (req, res) => {
-  const updatedresource = await Userresource.findByIdAndUpdate(
-    req.params.id,
+  const updatedresource = await Userresource.findOneAndUpdate(
+    req.params.aanganwadiId,
     {
       $set: req.body,
     },

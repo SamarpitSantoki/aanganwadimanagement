@@ -10,7 +10,7 @@ try {
 }
 };
 
-const Regiter = async (req, res) => {
+const Register = async (req, res) => {
   //this fields will come from frontend use User Schema to save this
   //query db for any existing email id reject if email exists
   // LinkedAanganwadi is an array of id's
@@ -54,4 +54,4 @@ const Regiter = async (req, res) => {
   }
 };
 
-module.exports = { Regiter, GetWorkerList };
+module.exports = { Register, GetWorkerList };
