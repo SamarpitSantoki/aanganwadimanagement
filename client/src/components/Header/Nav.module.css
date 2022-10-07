@@ -19,9 +19,9 @@
   gap: 30px;
   background-color: rgb(100, 100, 232);
   min-height: auto;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .heading {
@@ -59,6 +59,7 @@
   color: whitesmoke;
   background-color: rgb(100, 100, 232);
   font-weight: 600;
+  padding: 2px 1px;
   margin: 2ex;
   padding: 3px;
   border: none;
