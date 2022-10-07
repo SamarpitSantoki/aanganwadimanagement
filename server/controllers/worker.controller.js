@@ -64,4 +64,46 @@ const Register = async (req, res) => {
   }
 };
 
-module.exports = { Register, GetWorkerList ,GetWorker};
+const UpdateWorker = async (req, res) => {
+  const { id } = req.params;
+  const {
+    fName,
+    lName,
+    mName,
+    email,
+    role,
+    sector,
+    address,
+    phoneNumber,
+    linkedAanganwadi,
+  } = req.body;
+
+  try {
+    const exists = await User.findOne({ _id: id });
+    if (exists) {
+      const user = await User.updateOne(
+        { _id: id },
+        {
+          $set: {
+            fName,
+            lName,
+            mName,
+            email,
+            role,
+            sector,
+            address,
+            phoneNumber,
+            linkedAanganwadi,
+          },
+        }
+      );
+      res.status(200).send("Updated");
+    } else {
+      res.status(404).send({ message: "User not Found" });
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+module.exports = { Register, GetWorkerList, GetWorker, UpdateWorker };
