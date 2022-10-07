@@ -161,24 +161,29 @@ const UserList = ({ heading }) => {
                   </Button>
                 </div>
               </div>
-                          {['Sector'].map(
-                              (variant) => (
-                                  <DropdownButton
-                                      color="maincolor"
-                                      as={ButtonGroup}
-                                      key={variant}
-                                      id={`dropdown-variants-${variant}`}
-                                      variant={variant.toLowerCase()}
-                                      title={variant}
-                                  >
-                                      <Dropdown.Item eventKey="1">Abc</Dropdown.Item>
-                                      <Dropdown.Item eventKey="2">Def</Dropdown.Item>
-                                      <Dropdown.Item eventKey="3">
-                                          Abcd
-                                      </Dropdown.Item>
-                                  </DropdownButton>
-                              ),
-                          )}
+                          <Dropdown className="d-inline mx-2 ">
+                              <Dropdown.Toggle id="dropdown-autoclose-true" variant="maincolor">
+                                  Sector
+                              </Dropdown.Toggle>
+
+                              <Dropdown.Menu>
+                                  <Dropdown.Item href="#">Abc</Dropdown.Item>
+                                  <Dropdown.Item href="#">Def</Dropdown.Item>
+                                  <Dropdown.Item href="#">Abcd</Dropdown.Item>
+                              </Dropdown.Menu>
+                          </Dropdown>
+
+                          <Dropdown className="d-inline mx-2 ">
+                              <Dropdown.Toggle id="dropdown-autoclose-true" variant="maincolor">
+                                  Manager
+                              </Dropdown.Toggle>
+
+                              <Dropdown.Menu>
+                                  <Dropdown.Item href="#">A</Dropdown.Item>
+                                  <Dropdown.Item href="#">B</Dropdown.Item>
+                                  <Dropdown.Item href="#">C</Dropdown.Item>
+                              </Dropdown.Menu>
+                          </Dropdown>
               <Table striped bordered hover variant="light" className="m-2">
                 <thead>
                   <tr>
