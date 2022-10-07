@@ -4,7 +4,7 @@ const GetAanganwadiList = async (req, res) => {
   try {
   
     const {filter} = req.query
-    // const filters = JSON.parse(filter)
+    const filters = JSON.parse(filter)
       
     
     const exists = await Aanganwadi.find(filter || {});

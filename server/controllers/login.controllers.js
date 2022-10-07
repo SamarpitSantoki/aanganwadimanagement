@@ -17,7 +17,7 @@ const Login = async (req, res) => {
           expiresIn: 86400
         });
     
-        res.json({
+        res.status(200).json({
           token:token,
           message:"login succesfuly"
         })
