@@ -25,6 +25,7 @@ const Login = async (req, res) => {
           token: token,
           name: exists.name,
           email: exists.email,
+          role: exists.role,
           message: "login succesfuly",
         });
       } else {
