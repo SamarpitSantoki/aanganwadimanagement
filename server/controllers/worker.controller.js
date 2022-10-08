@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const Auth = require("../models/auth");
-
+const bcrypt = require("bcrypt");
 
 const GetWorkerList = async (req, res) => {
   try {
@@ -41,7 +41,7 @@ const Register = async (req, res) => {
       phoneNumber,
       linkedAanganwadi,
     } = req.body;
-    console.log(req.body, "check");
+    // console.log(req.body, "check");
     // check for the required fields to be non empty
 
     const exists = await User.findOne({ email });
@@ -62,6 +62,7 @@ const Register = async (req, res) => {
       await user.save();
 
       const hash = await bcrypt.hash(phoneNumber, 10);
+      console.log("before auth");
       const user1 = new Auth({
         name: fName,
         email,
@@ -70,6 +71,7 @@ const Register = async (req, res) => {
       });
       console.log("heeeeeeee");
       await user1.save();
+      console.log("saving auth");
       res.status(200).send("register worker");
     }
   } catch (error) {
