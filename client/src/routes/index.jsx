@@ -9,7 +9,8 @@ import ResourceReqPage from "../pages/ResourceRequest";
 import StockShowPage from "../pages/StockShowPage";
 import WorkerPage from "../pages/WorkerPage";
 import ProfilePage from "../pages/ProfilePage";
-
+import { useSelector } from "react-redux";
+import { getLoginState } from "../store/slices/authSlice";
 function index() {
   const user = useSelector(getLoginState);
 
@@ -22,13 +23,13 @@ function index() {
         <Route path="/login" element={<Login />} />
         {user?.token && (
           <>
-            {user.role === "admin" && (
+            {user?.role === "admin" && (
               <Route
                 path="/adminstaff"
                 element={<AdminStaffPage heading={"Admin Staff"} />}
               />
             )}
-            {(user.role === "admin" || user.role === "zonal") && (
+            {(user?.role === "admin" || user?.role === "zonal") && (
               <>
                 <Route
                   path="/worker"
@@ -37,7 +38,7 @@ function index() {
                 <Route path="/aanganwadi" element={<AanganwadiList />} />
               </>
             )}
-            {user.role === "worker" && (
+            {user?.role === "worker" && (
               <Route path="/stock" element={<StockShowPage />} />
             )}
             <Route path="/wadi/:id" element={<AanganwadiPage />} />

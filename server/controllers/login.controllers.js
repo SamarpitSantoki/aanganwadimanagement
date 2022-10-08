@@ -13,7 +13,9 @@ const Login = async (req, res) => {
       if (isPasswordValid) {
         var token = jwt.sign(
           {
-            id: email,
+            id: exists._id,
+            email: email,
+            role: exists.role,
           },
           process.env.JWT_SECRET,
           {
