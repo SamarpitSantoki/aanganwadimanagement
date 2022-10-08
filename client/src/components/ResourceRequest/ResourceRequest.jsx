@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 // import { Toggle } from "rsuite";
 import "../../App.css";
-import { FaPencilAlt,FaPlus,FaTrashAlt } from "react-icons/fa";
+import { FaCheck, FaHourglassHalf, FaPencilAlt,FaPlus,FaTrashAlt } from "react-icons/fa";
 import { HiEye } from "react-icons/hi"
 
 
@@ -143,17 +143,17 @@ const ResourceRequest = () => {
                                                 <td>
                                                     <Button
                                                         variant="maincolor"
-                                                        title="Edit req details"
+                                                        title="Request Approved"
                                                         onClick={() => onEdit(req)}
                                                     >
-                                                        <FaPencilAlt />
+                                                        <FaCheck /> Approved
                                                     </Button>{" "}
                                                     <Button
                                                         variant="danger"
-                                                        title="Delete req"
+                                                        title="Request Pending"
                                                         onClick={() => onDeletereq(req)}
                                                     >
-                                                        <FaTrashAlt />
+                                                        <FaHourglassHalf /> Pending
                                                     </Button>
                                                     <Button variant="maincolor" onClick={handleShow1} title="Request Details">
                                                         <HiEye color="white" />
