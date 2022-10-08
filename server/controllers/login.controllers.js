@@ -26,7 +26,7 @@ const Login = async (req, res) => {
           name: exists.name,
           email: exists.email,
           role: exists.role,
-          message: "login succesfuly",
+          message: "Login Succesfuly",
         });
       } else {
         res.status(400).send({

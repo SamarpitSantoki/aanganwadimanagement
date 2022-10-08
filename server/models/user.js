@@ -4,35 +4,35 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   email: {
     type: String,
-    require: true,
+    required: true,
   },
   fName: {
     type: String,
-    require: true,
+    required: true,
   },
   lName: {
     type: String,
-    require: true,
+    required: true,
   },
   mName: {
     type: String,
-    require: true,
+    required: true,
   },
   role: {
     type: String,
-    require: true,
+    required: true,
   },
   sector: {
     type: String,
-    require: true,
+    required: true,
   },
   address: {
     type: String,
-    require: true,
+    required: true,
   },
   phoneNumber: {
     type: Number,
-    require: true,
+    required: true,
   },
   linkedAanganwadi: {
     type: mongoose.Types.ObjectId,

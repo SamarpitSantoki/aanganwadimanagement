@@ -17,24 +17,24 @@ const AanganwadiSchema = new Schema({
   ],
   contactPerson: {
     type: String,
-    require: true,
+    required: true,
   },
   resourceNeeded: {
     type: Boolean,
-    require: false,
+    required: false,
     default: false,
   },
   sector: {
     type: String,
-    require: true,
+    required: true,
   },
   address: {
     type: String,
-    require: true,
+    required: true,
   },
   phoneNumber: {
     type: Number,
-    require: true,
+    required: true,
   },
 });
 
