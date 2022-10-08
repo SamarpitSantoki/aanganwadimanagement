@@ -18,8 +18,6 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import axiosFetch from "../../helpers/axiosfetch";
 
 const AanganwadiList = () => {
-  
-
   const initCurrentAanganwadi = {
     worker: "",
     sector: "",
