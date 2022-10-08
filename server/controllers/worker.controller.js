@@ -62,7 +62,6 @@ const Register = async (req, res) => {
       await user.save();
      
       const hash = await bcrypt.hash(phoneNumber, 10);
-      console.log('before auth');
       const user1 = new Auth({
         name:fName,
         email,
@@ -70,7 +69,6 @@ const Register = async (req, res) => {
         role
       });
       await user1.save();
-      console.log('saving auth');
       res.status(200).send("register worker");
     }
     
