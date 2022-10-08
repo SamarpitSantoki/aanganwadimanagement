@@ -1,13 +1,16 @@
-const Userresource = require("../models/resourceRequest");
+const resourceRequest = require("../models/resourceRequest");
 
 const Getresource = async (req, res) => {
   console.log(req.params);
-  const { aanganwadiId } = req.params.aanganwadiId;
-  const exists = await Userresource.find(aanganwadiId);
+  const { aanganwadiId } = req.params;
+  const exists = await resourceRequest.find({
+    aanganwadiId: aanganwadiId,
+  });
   res.status(200).send(exists);
 };
 const Getallresource = async (req, res) => {
-  const exists = await Userresource.find({});
+  // const { username } = req.body;
+  const exists = await resourceRequest.find({});
   res.status(200).send(exists);
 };
 const addresource = async (req, res) => {
@@ -19,7 +22,7 @@ const addresource = async (req, res) => {
     status,
     approvedById,
   } = req.body;
-  const user = new Userresource({
+  const user = new resourceRequest({
     aanganwadiId,
     workerId,
     requestedStock,
@@ -34,34 +37,39 @@ const addresource = async (req, res) => {
 
 const deleteresource = async (req, res) => {
   const { aanganwadiId } = req.params.aanganwadiId;
-  const exists = await Userresource.findOneAndDelete(aanganwadiId);
+  const exists = await resourceRequest.findOneAndDelete(aanganwadiId);
   res.status(200).json({
-    message:"deleted successfully",
-  })
+    message: "deleted successfully",
+  });
 };
 
 const updatedresource = async (req, res) => {
-  try{
-    const updatedresource = await Userresource.findByIdAndUpdate(
-      req.params.aanganwadiId,
+  try {
+    console.log(req.params.aanganwadiId);
+    const updatedresource = await resourceRequest.findOneAndUpdate(
+      { aangalwadi: req.params.aanganwadiId },
       {
         $set: req.body,
       },
       { new: true }
-      );
-  console.log(updatedresource);
-  if(updatedresource)
-  {
-    res.status(200).send(updatedresource);
-
-  }else{
-    res.status(404).json({
-      message:"id not found",
-    });
+    );
+    console.log(updatedresource);
+    if (updatedresource) {
+      res.status(200).send(updatedresource);
+    } else {
+      res.status(404).json({
+        message: "id not found",
+      });
+    }
+  } catch (e) {
+    res.status(404).send(e);
   }
-} catch (e){
-  res.status(404).send(e)
-}
 };
 
-module.exports = { Getresource, addresource, deleteresource, updatedresource,Getallresource };
+module.exports = {
+  Getresource,
+  addresource,
+  deleteresource,
+  updatedresource,
+  Getallresource,
+};

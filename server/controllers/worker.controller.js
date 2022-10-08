@@ -63,7 +63,6 @@ const Register = async (req, res) => {
       await user.save();
 
       const hash = await bcrypt.hash(phoneNumber, 10);
-      console.log("before auth");
       const user1 = new Auth({
         name: fName,
         email,
@@ -72,7 +71,6 @@ const Register = async (req, res) => {
       });
       console.log("heeeeeeee");
       await user1.save();
-      console.log("saving auth");
       res.status(200).send("register worker");
     }
   } catch (error) {
@@ -95,25 +93,18 @@ const UpdateWorker = async (req, res) => {
   } = req.body;
 
   try {
-    const exists = await User.findOne({ _id: id });
+    const exists = await User.findByIdAndUpdate(id, {
+      fName,
+      lName,
+      mName,
+      email,
+      role,
+      sector,
+      address,
+      phoneNumber,
+      linkedAanganwadi,
+    });
     if (exists) {
-      const user = await User.updateOne(
-        { _id: id },
-        {
-          $set: {
-            fName,
-            lName,
-            mName,
-            email,
-            role,
-            sector,
-            address,
-            phoneNumber,
-            linkedAanganwadi,
-          },
-        }
-      );
-
       if (exists.linkedAanganwadi !== linkedAanganwadi) {
         const aanganwadi = await Aanganwadi.findOne({ _id: linkedAanganwadi });
         if (aanganwadi) {

@@ -64,6 +64,7 @@ const CreateAanganwadi = async (req, res) => {
 
 const updateaanganwadi = async (req, res) => {
   try {
+    
     const updateaanganwadi = await Aanganwadi.findByIdAndUpdate(
       req.params.id,
       {
