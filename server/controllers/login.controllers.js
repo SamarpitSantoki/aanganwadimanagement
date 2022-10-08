@@ -45,12 +45,13 @@ const Login = async (req, res) => {
 
 const SignUp = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password,role } = req.body;
     const hash = await bcrypt.hash(password, 10);
     const user = new Auth({
       name,
       email,
-      password: hash,
+      role,
+      password: hash
     });
     await user.save();
     

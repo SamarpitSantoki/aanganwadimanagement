@@ -5,8 +5,8 @@ const GetAanganwadiList = async (req, res) => {
     // const filters = JSON.parse(filter)
 
     const { filter } = req.query;
-    const filters = filter && JSON.parse(filter);
-    console.log("camehere");
+    // const filters = filter && JSON.parse(filter);
+    console.log("");
     const exists = await Aanganwadi.find(filters ?? {}).exec();
     return res.status(200).send(exists);
   } catch (error) {
