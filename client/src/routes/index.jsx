@@ -8,6 +8,7 @@ import Login from "../pages/Login";
 import ResourceReqPage from "../pages/ResourceRequest";
 import StockShowPage from "../pages/StockShowPage";
 import WorkerPage from "../pages/WorkerPage";
+import ProfilePage from "../pages/ProfilePage";
 
 
 function index() {
@@ -26,6 +27,7 @@ function index() {
         <Route path="/stock" element={<StockShowPage/>} />
         <Route path='/wadi/:id' element={<AanganwadiPage /> } />
         <Route path="/requests" element={<ResourceReqPage/>}/>
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </div>
   );
