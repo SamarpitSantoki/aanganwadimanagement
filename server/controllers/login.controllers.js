@@ -28,7 +28,7 @@ const Login = async (req, res) => {
           name: exists.name,
           email: exists.email,
           role: exists.role,
-          message: "login succesfuly",
+          message: "Login Succesfuly",
         });
       } else {
         res.status(400).send({
@@ -55,11 +55,11 @@ const SignUp = async (req, res) => {
       password: hash,
     });
     await user.save();
-    generateToken(email, password);
+    
     if (user) {
-      res.json({
+      res.status(200).json({
         message: "user created successfully",
-        token: generateToken(user._id),
+      
       });
     } else {
       res.status(400);
@@ -70,11 +70,7 @@ const SignUp = async (req, res) => {
   }
 };
 
-const generateToken = (email) => {
-  return jwt.sign({ email }, process.env.JWT_SECRET, {
-    expiresIn: "30d",
-  });
-};
+
 module.exports = {
   Login,
   SignUp,

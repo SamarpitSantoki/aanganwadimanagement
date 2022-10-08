@@ -6,28 +6,28 @@ const ResourceSchema = new Schema({
   aanganwadiId: {
     type: String,
     unique: true,
-    require: true
+    required: true
   },
   workerId: {
     type: String,
     unique: true,
-    require: true
+    required: true
   },
   requestedStock: {
     type: String,
-    require: true
+    required: true
   },
   approvedStock: {
     type: String,
-    require: true
+    required: true
   },
   status: {
     type: String,
-    require: true
+    required: true
   },
   approvedById: {
     type: String,
-    require: true
+    required: true
   }
 });
 
