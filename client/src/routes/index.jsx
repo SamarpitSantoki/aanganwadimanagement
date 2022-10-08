@@ -8,8 +8,7 @@ import Login from "../pages/Login";
 import ResourceReqPage from "../pages/ResourceRequest";
 import StockShowPage from "../pages/StockShowPage";
 import WorkerPage from "../pages/WorkerPage";
-import { useSelector } from "react-redux";
-import { getLoginState } from "../store/slices/authSlice";
+import ProfilePage from "../pages/ProfilePage";
 
 function index() {
   const user = useSelector(getLoginState);
@@ -45,6 +44,7 @@ function index() {
             <Route path="/requests" element={<ResourceReqPage />} />
           </>
         )}
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </div>
   );

@@ -14,7 +14,7 @@ import {
 import "../../App.css";
 import { FaCheck, FaHourglassHalf, FaPencilAlt,FaPlus,FaTrashAlt } from "react-icons/fa";
 import { HiEye } from "react-icons/hi"
-
+import Badge from 'react-bootstrap/Badge';
 
 const ResourceRequest = () => {
 
@@ -117,6 +117,15 @@ const ResourceRequest = () => {
                                 <div>
                                     <Card.Title>Resource Request</Card.Title>
                                 </div>
+                                <div className="d-flex">
+                                    <Button
+                                        variant="maincolor"
+                                        onClick={handleShow}
+                                        title="Add Request"
+                                    >
+                                        <FaPlus color="white" />
+                                    </Button>
+                                </div>
                             </div>
                             <Table
                                 striped
@@ -141,21 +150,10 @@ const ResourceRequest = () => {
                                                 <td>{req.aanganwadi}</td>
                                                 <td>{req.manager}</td>
                                                 <td>
-                                                    <Button
-                                                        variant="maincolor"
-                                                        title="Request Approved"
-                                                        onClick={() => onEdit(req)}
-                                                    >
-                                                        <FaCheck /> Approved
-                                                    </Button>{" "}
-                                                    <Button
-                                                        variant="danger"
-                                                        title="Request Pending"
-                                                        onClick={() => onDeletereq(req)}
-                                                    >
-                                                        <FaHourglassHalf /> Pending
-                                                    </Button>
-                                                    <Button variant="maincolor" onClick={handleShow1} title="Request Details">
+                                                    <Badge bg="success"><FaCheck />Approved</Badge> {' '}
+                                                    <Badge bg="danger" ><FaHourglassHalf /> Pending</Badge>{' '}
+                                                    
+                                                    <Button variant="maincolor" size="sm" onClick={handleShow1} title="Request Details">
                                                         <HiEye color="white" />
                                                     </Button>
                                                 </td>
@@ -184,22 +182,23 @@ const ResourceRequest = () => {
                         <Modal.Header closeButton>
                             <Modal.Title>Request Deatails of Aanganwadi</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>
+                        <div>
+
+                        <Modal.Body className="p-2 border bg-light">
+                                <tr>Manager</tr> 
+                                <tr>Sector</tr>
+                                <tr>Phone</tr>
                             <Table
                                 striped
                                 bordered
                                 hover
                                 variant="light"
                                 className="m-2"
-                            >
+                                >
                                 <thead>
                                     <tr>
                                         <th>Resource Requested</th>
                                         <th>Quantity</th>
-                                        <th>Manager</th>
-                                        <th>Phone</th>
-                                        <th>Sector</th>
-                                       
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -208,13 +207,11 @@ const ResourceRequest = () => {
                                             <tr key={index}>
                                                 <td>{req.resource}</td>
                                                 <td>{req.aanganwadi}</td>
-                                                <td>{req.manager}</td>
+                                                {/* <td>{req.manager}</td>
                                                 <td>{req.phone}</td>
                                                 <td>
                                                     {req.sector}
-                                                </td>
-
-                                                
+                                                </td> */}
                                             </tr>
                                         ))
                                     ) : (
@@ -233,6 +230,8 @@ const ResourceRequest = () => {
                             </Button>
                             <Button variant="maincolor">Approve</Button>
                         </Modal.Footer>
+                        </div>
+                        
                     </Modal>
                     <Modal size="lg" show={show} onHide={handleClose}>
                         <Form
@@ -240,13 +239,13 @@ const ResourceRequest = () => {
                                 e.preventDefault();
                                 onSubmit(newreq);
                             }}
-                        >
+                            >
                             <Modal.Header closeButton>
                                 {editing == true ? (
                                     <Modal.Title>Edit Resource</Modal.Title>
-                                ) : (
-                                    <Modal.Title>Add Resource</Modal.Title>
-                                )}
+                                    ) : (
+                                        <Modal.Title>Add Resource</Modal.Title>
+                                        )}
                             </Modal.Header>
                             <Modal.Body>
                                 <Form.Group
