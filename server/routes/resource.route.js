@@ -3,7 +3,7 @@ const router = express.Router();
 const {Getresource,addresource,deleteresource,updatedresource,Getallresource } = require("../controllers/resource.controller");
 const {verifyUserToken}= require('../middleware/Auth');
 
-router.get("/getresource:aanganwadiId", verifyUserToken,Getresource);
+router.get("/getresource/:aanganwadiId", verifyUserToken,Getresource);
 router.get("/getallresource", verifyUserToken,Getallresource);
 
 router.post("/addresource",verifyUserToken ,addresource);
