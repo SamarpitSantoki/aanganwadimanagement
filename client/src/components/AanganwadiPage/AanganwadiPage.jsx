@@ -12,12 +12,12 @@ const AanganwadiPage = () => {
             <div className="p-2 border bg-light">
               <h5 className="text-center border-bottom">Aanganwadi-Details</h5>
               <div className="p-2 text bg-light">
-                <tr>Manager</tr>
-                <tr>Workers</tr>
-                <tr>Sector</tr>
-                <tr>Phone</tr>
-                <tr>Contact Person</tr>
-                <tr>ResourceNeeded</tr>
+                <tr>Manager <td>:</td><td>123</td></tr>
+                <tr>Workers <td>:</td><td>123</td></tr>
+                <tr>Sector <td>:</td><td>123</td></tr>
+                <tr>Phone <td>:</td><td>9999999999</td></tr>
+                <tr>Contact Person <td>:</td><td>ABC</td></tr>
+                <tr>ResourceNeeded <td>:</td><td>123</td></tr>
               </div>
             </div>
           </div>
@@ -25,12 +25,12 @@ const AanganwadiPage = () => {
             <div className="p-2 border bg-light">
               <h5 className="text-center border-bottom">Aanganwadi Manager-Details</h5>
               <div className="p-2 text bg-light">
-                <tr>First Name</tr>
-                <tr>Last Name</tr>
-                <tr>Email</tr>
-                <tr>Sector</tr>
-                <tr>Phone</tr>
-                <tr>Aanganwadi</tr>
+                <tr>First Name <td>:</td><td>ABC</td></tr>
+                <tr>Last Name <td>:</td><td>ABC</td></tr>
+                <tr>Email <td>:</td><td>abc@gmail.com</td></tr>
+                <tr>Sector <td>:</td><td>123</td></tr>
+                <tr>Phone <td>:</td><td>9999999999</td></tr>
+                <tr>Aanganwadi <td>:</td><td>ABC</td></tr>
               </div>
             </div>
           </div>
@@ -50,8 +50,15 @@ const AanganwadiPage = () => {
                 <Table striped bordered hover variant="light" className="m-2">
                   <thead>
                     <tr>
-                      <th>Resource</th>
-                      <th>Quantity</th>
+                      <th>Resource
+                        <tr>A</tr>
+                        <tr>B</tr>
+                      </th>
+
+                      <th>Quantity
+                        <tr>1</tr>
+                        <tr>2</tr>
+                      </th>
                     </tr>
                   </thead>
                 </Table>

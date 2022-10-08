@@ -184,16 +184,20 @@ const ResourceRequest = () => {
                         </Modal.Header>
                         <div>
 
-                        <Modal.Body className="p-2 border bg-light">
-                                <tr>Manager</tr> 
-                                <tr>Sector</tr>
-                                <tr>Phone</tr>
+                        <Modal.Body className="m-2 p-2 border bg-light">
+                                <tr>Manager <td>:</td><td>aabc</td>
+                                </tr> 
+                                <tr>Sector <td>:</td><td>123</td>
+                                </tr>
+                                <tr>Phone <td>:</td>
+                                    <td>9999999999</td>
+                                </tr>
                             <Table
                                 striped
                                 bordered
                                 hover
                                 variant="light"
-                                className="m-2"
+                                className="mt-3"
                                 >
                                 <thead>
                                     <tr>
