@@ -455,7 +455,8 @@ const WorkerPage = ({ heading }) => {
                     {aangList.length
                       ? aangList.map((val, index) => (
                           <option key={index} value={val._id}>
-                            Sector: {val.sector} , Manager: {val.manager}
+                            {val.aanganwadiname} , Sector: {val.sector} ,
+                            Manager: {val.manager}
                           </option>
                         ))
                       : null}

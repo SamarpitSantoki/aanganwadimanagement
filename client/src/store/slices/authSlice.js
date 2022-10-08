@@ -4,9 +4,10 @@ const initialState = {
   user: null,
 };
 
+
 export const counterSlice = createSlice({
   name: "auth",
-  initialState,
+  initialState: JSON.parse(sessionStorage.getItem("user")) ?? initialState,
   reducers: {
     login: (state, action) => {
       state.user = action.payload;

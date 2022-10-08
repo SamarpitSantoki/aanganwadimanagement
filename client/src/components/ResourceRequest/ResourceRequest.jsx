@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import {
-    Button,
-    Container,
-    Card,
-    Form,
-    Modal,
-
-    Col,
-    Row,
-    Table,
+  Button,
+  Container,
+  Card,
+  Form,
+  Modal,
+  Col,
+  Row,
+  Table,
 } from "react-bootstrap";
 // import { Toggle } from "rsuite";
 import "../../App.css";

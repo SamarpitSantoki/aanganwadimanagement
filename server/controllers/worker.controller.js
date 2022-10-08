@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Auth = require("../models/auth");
 const bcrypt = require("bcrypt");
+const Aanganwadi = require("../models/aanganwadi");
 
 const GetWorkerList = async (req, res) => {
   try {
@@ -112,6 +113,18 @@ const UpdateWorker = async (req, res) => {
           },
         }
       );
+
+      if (exists.linkedAanganwadi !== linkedAanganwadi) {
+        const aanganwadi = await Aanganwadi.findOne({ _id: linkedAanganwadi });
+        if (aanganwadi) {
+          const aanganwadi1 = await Aanganwadi.findByIdAndUpdate(
+            linkedAanganwadi,
+            {
+              worker: exists._id,
+            }
+          );
+        }
+      }
       res.status(200).send("Updated");
     } else {
       res.status(404).send({ message: "User not Found" });

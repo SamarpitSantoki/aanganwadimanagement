@@ -12,7 +12,7 @@ const AanganwadiSchema = new Schema({
   },
   stock: [
     {
-      type: String,
+      type: Object,
     },
   ],
   contactPerson: {

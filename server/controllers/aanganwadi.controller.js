@@ -1,13 +1,13 @@
 const Aanganwadi = require("../models/aanganwadi");
 const jwt = require("jsonwebtoken");
 const { default: mongoose } = require("mongoose");
+const User = require("../models/user");
 const GetAanganwadiList = async (req, res) => {
   try {
     // const filters = JSON.parse(filter)
 
     const { filter } = req.query;
-    // const filters = filter && JSON.parse(filter);
-    console.log("");
+    const filters = filter && JSON.parse(filter);
     const exists = await Aanganwadi.find(filters ?? {}).exec();
     return res.status(200).send(exists);
   } catch (error) {
@@ -19,7 +19,6 @@ const GetAanganwadi = async (req, res) => {
     // const filters = JSON.parse(filter)
 
     const { id } = req.params;
-    console.log("camehereasdasd");
     const exists = await Aanganwadi.findById(id).exec();
     return res.status(200).send(exists);
   } catch (error) {
@@ -97,16 +96,14 @@ const deleteaanganwadi = async (req, res) => {
 };
 
 const GetAanganwadiStock = async (req, res) => {
-  console.log("checkthis");
   try {
     // decode jwt token to get user id
     const token = req.headers.authorization.split(" ")[1];
-    console.log(token);
     const decoded = jwt.decode(token);
-    console.log(decoded);
-    const stock = await Aanganwadi.findOne({
-      worker: mongoose.Types.ObjectId(decoded.id),
-    }).exec();
+
+    const user = await User.findOne({ email: decoded.email }).exec();
+    console.log(user, "get stock");
+    const stock = await Aanganwadi.findById(user.linkedAanganwadi).exec();
     if (stock) {
       return res.status(200).send(stock.stock);
     } else {
@@ -120,14 +117,15 @@ const AddAanganwadiStock = async (req, res) => {
   try {
     // decode jwt token to get user id
     const token = req.headers.authorization.split(" ")[1];
-    console.log(token);
     const decoded = jwt.decode(token);
-    console.log(decoded);
-    const stock = await Aanganwadi.findOne({
-      worker: mongoose.Types.ObjectId(decoded.id),
-    }).exec();
-    stock.stock = [...stock.stock, req.body.stock];
+
+    const user = await User.findOne({ email: decoded.email });
+    console.log(user, "add stock");
+    const stock = await Aanganwadi.findById(user.linkedAanganwadi).exec();
+    console.log(stock);
+    stock.stock = [...stock.stock, req.body];
     await stock.save();
+    return res.status(200).send("Stock Added");
   } catch (error) {
     return res.status(500).send(error);
   }

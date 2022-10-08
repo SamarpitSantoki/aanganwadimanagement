@@ -96,7 +96,6 @@ const AanganwadiList = () => {
       });
       console.log(res);
       if (res.status == 200) {
-        fetchWorkers();
         handleClose();
         setEdit(false);
       }
@@ -288,7 +287,15 @@ const AanganwadiList = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasiclWorkers">
                   <Form.Label>Worker</Form.Label>
-                  <Form.Select aria-label="Default select example">
+                  <Form.Select
+                    aria-label="Default select example"
+                    onChange={(e) =>
+                      setNewAanganwadi({
+                        ...newAanganwadi,
+                        worker: e.target.value,
+                      })
+                    }
+                  >
                     <option>Select Worker</option>
                     {workerList.map((worker, index) => (
                       <option key={index} value={worker._id}>

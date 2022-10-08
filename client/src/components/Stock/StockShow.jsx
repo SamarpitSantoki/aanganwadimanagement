@@ -37,7 +37,7 @@ const StockShow = () => {
     }
   };
 
-  const onFormSubmit = async (newStock) => {
+  const onFormSubmit = async () => {
     try {
       const res = await axiosFetch({
         method: "post",
@@ -65,7 +65,7 @@ const StockShow = () => {
     if (editing === true) {
       onUpdateStock(newStock);
     } else {
-      onFormSubmit(newStock);
+      onFormSubmit();
     }
   };
 
@@ -208,12 +208,7 @@ const StockShow = () => {
                     Update
                   </Button>
                 ) : (
-                  <Button
-                    variant="primary"
-                    disabled={!newStock.name}
-                    type="submit"
-                    onClick={handleClose}
-                  >
+                  <Button variant="primary" type="submit" onClick={handleClose}>
                     Submit
                   </Button>
                 )}
