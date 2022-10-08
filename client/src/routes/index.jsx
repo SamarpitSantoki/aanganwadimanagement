@@ -23,16 +23,24 @@ function index() {
         <Route path="/login" element={<Login />} />
         {user?.token && (
           <>
-            <Route
-              path="/adminstaff"
-              element={<AdminStaffPage heading={"Admin Staff"} />}
-            />
-            <Route
-              path="/worker"
-              element={<WorkerPage heading={"Workers"} />}
-            />
-            <Route path="/aanganwadi" element={<AanganwadiList />} />
-            <Route path="/stock" element={<StockShowPage />} />
+            {user.role === "admin" && (
+              <Route
+                path="/adminstaff"
+                element={<AdminStaffPage heading={"Admin Staff"} />}
+              />
+            )}
+            {(user.role === "admin" || user.role === "zonal") && (
+              <>
+                <Route
+                  path="/worker"
+                  element={<WorkerPage heading={"Workers"} />}
+                />
+                <Route path="/aanganwadi" element={<AanganwadiList />} />
+              </>
+            )}
+            {user.role === "worker" && (
+              <Route path="/stock" element={<StockShowPage />} />
+            )}
             <Route path="/wadi/:id" element={<AanganwadiPage />} />
             <Route path="/requests" element={<ResourceReqPage />} />
           </>

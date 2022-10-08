@@ -4,18 +4,21 @@ const Schema = mongoose.Schema;
 const AuthSchema = new Schema({
   name: {
     type: String,
-    require: true
-  },  
+    require: true,
+  },
   email: {
     type: String,
     unique: true,
-    require: true
-  },  
+    require: true,
+  },
+  role: {
+    type: String,
+    require: true,
+  },
   password: {
     type: String,
-    require: true
-
-  }
+    require: true,
+  },
 });
 
 const Auth = mongoose.model("auth", AuthSchema);

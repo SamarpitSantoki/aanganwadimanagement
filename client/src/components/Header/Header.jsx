@@ -2,25 +2,30 @@ import React from "react";
 import styles from "../Header/Header.module.css";
 import style from "../Header/Nav.module.css";
 import { Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
+import { getLoginState } from "../../store/slices/authSlice";
 // import gujgov from '../../assets/guj-gov.png'
 const Header = () => {
+  const user = useSelector(getLoginState);
   return (
     <>
       <div className={style.container1}>
         <div className={style.left}>
-          <Link to={"/adminstaff"}>
-            <button>Admin Staff</button>
-          </Link>
-          <Link to={"/worker"}>
-            <button>Wokers</button>
-          </Link>
-          <Link to={"/aanganwadi"}>
-            <button>Aanganwadi</button>
-          </Link>
-          <Link to={"/stock"}>
-            <button>Stock</button>
-          </Link>
+          {user.role === "admin" && (
+            <Link to={"/worker"}>
+              <button>Wokers</button>
+            </Link>
+          )}
+          {(user.role === "admin" || user.role === "zonal") && (
+            <Link to={"/aanganwadi"}>
+              <button>Aanganwadi</button>
+            </Link>
+          )}
+          {user.role === "worker" && (
+            <Link to={"/stock"}>
+              <button>Stock</button>
+            </Link>
+          )}
           <Link to={"/requests"}>
             <button>Requests</button>
           </Link>
