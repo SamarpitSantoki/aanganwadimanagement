@@ -13,6 +13,18 @@ const GetAanganwadiList = async (req, res) => {
     return res.status(500).send(error);
   }
 };
+const GetAanganwadi = async (req, res) => {
+  try {
+    // const filters = JSON.parse(filter)
+
+    const { id } = req.params;
+    console.log("camehere");
+    const exists = await Aanganwadi.findById(id).exec();
+    return res.status(200).send(exists);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
 
 const CreateAanganwadi = async (req, res) => {
   try {
@@ -88,4 +100,5 @@ module.exports = {
   GetAanganwadiList,
   deleteaanganwadi,
   updateaanganwadi,
+  GetAanganwadi,
 };

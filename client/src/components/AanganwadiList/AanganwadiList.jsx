@@ -16,8 +16,10 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import axiosFetch from "../../helpers/axiosfetch";
+import { useNavigate } from "react-router-dom";
 
 const AanganwadiList = () => {
+  const navigate = useNavigate();
   const initCurrentAanganwadi = {
     worker: "",
     sector: "",
@@ -129,6 +131,10 @@ const AanganwadiList = () => {
     }
   };
 
+  const handleViewAanganwadi = (id) => {
+    navigate("/wadi/" + id);
+  };
+
   useEffect(() => {
     fetchAanganwadis();
   }, []);
@@ -182,7 +188,10 @@ const AanganwadiList = () => {
                 <tbody>
                   {aanganwadis.length > 0 ? (
                     aanganwadis.map((aanganwadi, index) => (
-                      <tr key={index}>
+                      <tr
+                        key={index}
+                        onClick={() => handleViewAanganwadi(aanganwadi._id)}
+                      >
                         <td>{aanganwadi.aanganwadiname}</td>
                         <td>{aanganwadi.worker}</td>
                         <td>{aanganwadi.sector}</td>
