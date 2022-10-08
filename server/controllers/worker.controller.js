@@ -92,24 +92,21 @@ const UpdateWorker = async (req, res) => {
   } = req.body;
 
   try {
-    const exists = await User.findOne({ _id: id });
+    const exists = await User.findByIdAndUpdate( id ,
+      {
+        fName,
+        lName,
+        mName,
+        email,
+        role,
+        sector,
+        address,
+        phoneNumber,
+        linkedAanganwadi,
+      
+    });
     if (exists) {
-      const user = await User.updateOne(
-        { _id: id },
-        {
-          $set: {
-            fName,
-            lName,
-            mName,
-            email,
-            role,
-            sector,
-            address,
-            phoneNumber,
-            linkedAanganwadi,
-          },
-        }
-      );
+     
       res.status(200).send("Updated");
     } else {
       res.status(404).send({ message: "User not Found" });
