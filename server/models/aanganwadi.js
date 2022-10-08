@@ -2,20 +2,14 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const AanganwadiSchema = new Schema({
-  aanganwadiname:{
-      type:String,
-      required:true,
-      unique:true,
-  },
-  manager: {
+  aanganwadiname: {
     type: String,
-    require: true,
+    required: true,
+    unique: true,
   },
-  workers: [
-    {
-      type: mongoose.Types.ObjectId,
-    },
-  ],
+  worker: {
+    type: mongoose.Types.ObjectId,
+  },
   stock: [
     {
       type: String,

@@ -11,7 +11,7 @@ const { verifyUserToken } = require("../middleware/Auth");
 router.post("/", verifyUserToken, CreateAanganwadi);
 router.get("/", verifyUserToken, GetAanganwadiList);
 
-router.delete("/:aanganwadiname", verifyUserToken, deleteaanganwadi);
-router.put("/:aanganwadiname", verifyUserToken, updateaanganwadi);
+router.delete("/:id", verifyUserToken, deleteaanganwadi);
+router.put("/:id", verifyUserToken, updateaanganwadi);
 
 module.exports = router;

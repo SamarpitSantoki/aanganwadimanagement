@@ -106,4 +106,25 @@ const UpdateWorker = async (req, res) => {
   }
 };
 
-module.exports = { Register, GetWorkerList, GetWorker, UpdateWorker };
+const DeleteWorker = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const exists = await User.findOne({ _id: id });
+    if (exists) {
+      const user = await User.deleteOne({ _id: id });
+      return res.status(200).send("Deleted");
+    } else {
+      return res.status(404).send({ message: "User not Found" });
+    }
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
+
+module.exports = {
+  Register,
+  GetWorkerList,
+  GetWorker,
+  UpdateWorker,
+  DeleteWorker,
+};

@@ -18,28 +18,10 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import axiosFetch from "../../helpers/axiosfetch";
 
 const AanganwadiList = () => {
-  const defaultAanganwadis = [
-    {
-      manager: "A",
-      workers: "5",
-      sector: "Abc",
-      phoneNumber: "9999999999",
-      contactPerson: "A",
-      resourceNeeded: "1",
-    },
-    {
-      manager: "A",
-      workers: "5",
-      sector: "Abc",
-      phoneNumber: "9999999999",
-      contactPerson: "A",
-      resourceNeeded: "1",
-    },
-  ];
+  
 
   const initCurrentAanganwadi = {
-    manager: "",
-    workers: "",
+    worker: "",
     sector: "",
     phoneNumber: "",
     contactPerson: "",
@@ -65,8 +47,7 @@ const AanganwadiList = () => {
   const onFormSubmit = async (newAanganwadi) => {
     const id = aanganwadis.length + 1;
     if (
-      newAanganwadi.manager == "" ||
-      newAanganwadi.workers == "" ||
+      newAanganwadi.worker == "" ||
       newAanganwadi.sector == "" ||
       newAanganwadi.phoneNumber == "" ||
       newAanganwadi.contactPerson == "" ||
@@ -83,7 +64,6 @@ const AanganwadiList = () => {
     });
     console.log(res);
     if (res.status == 200) {
-      setUsers([...users, newUser]);
       handleClose();
       fetchWorkers();
     }
@@ -93,7 +73,7 @@ const AanganwadiList = () => {
   const onEdit = (newAanganwadi) => {
     setEdit(true);
     if (editing == true) {
-      setNewAanganwadi({ ...newAanganwadi, newAanganwadi });
+      setNewAanganwadi({ ...newAanganwadi });
       handleShow();
     }
   };
@@ -106,14 +86,38 @@ const AanganwadiList = () => {
     }
   };
 
-  const onUpdateAanganwadi = (newAanganwadi) => {
-    setEdit(false);
-    let id = newAanganwadi.id;
-    setAanganwadis(aanganwadis.map((i) => (i.id === id ? newAanganwadi : i)));
+  const onUpdateAanganwadi = async (newAanganwadi) => {
+    let id = newAanganwadi._id;
+
+    try {
+      const res = await axiosFetch({
+        url: "/aanganwadi/" + id,
+        method: "put",
+        data: newAanganwadi,
+      });
+      console.log(res);
+      if (res.status == 200) {
+        fetchWorkers();
+        handleClose();
+        setEdit(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const onDeleteAanganwadi = (currentAanganwadi) => {
-    setAanganwadis(aanganwadis.filter((i) => i.id !== currentAanganwadi.id));
+  const onDeleteAanganwadi = async (id) => {
+    try {
+      const res = await axiosFetch({
+        url: "/aanganwadi/" + id,
+        method: "delete",
+      });
+      if (res.status == 200) {
+        fetchAanganwadis();
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const fetchAanganwadis = async () => {
@@ -168,8 +172,8 @@ const AanganwadiList = () => {
               <Table striped bordered hover variant="light" className="m-2">
                 <thead>
                   <tr>
-                    <th>Manager</th>
-                    <th>Workers</th>
+                    <th>Name</th>
+                    <th>Worker</th>
                     <th>Sector</th>
                     <th>Phone</th>
                     <th>Contact Person</th>
@@ -181,8 +185,8 @@ const AanganwadiList = () => {
                   {aanganwadis.length > 0 ? (
                     aanganwadis.map((aanganwadi, index) => (
                       <tr key={index}>
-                        <td>{aanganwadi.manager}</td>
-                        <td>{aanganwadi.workers}</td>
+                        <td>{aanganwadi.aanganwadiname}</td>
+                        <td>{aanganwadi.worker}</td>
                         <td>{aanganwadi.sector}</td>
                         <td>{aanganwadi.phoneNumber}</td>
                         <td>{aanganwadi.contactPerson}</td>
@@ -198,7 +202,7 @@ const AanganwadiList = () => {
                           <Button
                             variant="danger"
                             title="Delete aanganwadi"
-                            onClick={() => onDeleteAanganwadi(aanganwadi)}
+                            onClick={() => onDeleteAanganwadi(aanganwadi._id)}
                           >
                             <FaTrashAlt />
                           </Button>
@@ -233,20 +237,21 @@ const AanganwadiList = () => {
               </Modal.Header>
               <Modal.Body>
                 <Form.Group className="mb-3" controlId="formBasicfManager">
-                  <Form.Label>Manager</Form.Label>
+                  <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
-                    value={newAanganwadi.manager}
+                    value={newAanganwadi.aanganwadiname}
                     required
                     onChange={(e) =>
                       setNewAanganwadi({
                         ...newAanganwadi,
-                        manager: e.target.value,
+                        aanganwadiname: e.target.value,
                       })
                     }
-                    placeholder="Enter Manager Name"
+                    placeholder="Enter Aanganwadi Name"
                   />
                 </Form.Group>
+
                 <Form.Group className="mb-3" controlId="formBasicAddress">
                   <Form.Label>Address</Form.Label>
                   <Form.Control
@@ -262,15 +267,14 @@ const AanganwadiList = () => {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasiclWorkers">
-                  <Form.Label>Workers</Form.Label>
+                  <Form.Label>Worker</Form.Label>
                   <Form.Control
-                    type="number"
-                    value={newAanganwadi.workers}
-                    required
+                    type="string"
+                    value={newAanganwadi.worker}
                     onChange={(e) =>
                       setNewAanganwadi({
                         ...newAanganwadi,
-                        workers: e.target.value,
+                        worker: e.target.value,
                       })
                     }
                     placeholder="Enter Workers"
@@ -342,7 +346,11 @@ const AanganwadiList = () => {
                   Close
                 </Button>
                 {editing === true ? (
-                  <Button variant="primary" type="submit" onClick={handleClose}>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    onClick={() => onSubmit(newAanganwadi)}
+                  >
                     Update
                   </Button>
                 ) : (

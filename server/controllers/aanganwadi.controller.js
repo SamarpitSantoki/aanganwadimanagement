@@ -2,14 +2,15 @@ const Aanganwadi = require("../models/aanganwadi");
 
 const GetAanganwadiList = async (req, res) => {
   try {
+    // const filters = JSON.parse(filter)
+
     const { filter } = req.query;
     const filters = filter && JSON.parse(filter);
     console.log("camehere");
     const exists = await Aanganwadi.find(filters ?? {}).exec();
-    console.log(exists);
-    res.status(200).send(exists);
+    return res.status(200).send(exists);
   } catch (error) {
-    res.status(500).send(error);
+    return res.status(500).send(error);
   }
 };
 
@@ -17,7 +18,7 @@ const CreateAanganwadi = async (req, res) => {
   try {
     const {
       aanganwadiname,
-      manager,
+      worker,
       address,
       sector,
       phoneNumber,
@@ -25,7 +26,7 @@ const CreateAanganwadi = async (req, res) => {
     } = req.body;
     const user = new Aanganwadi({
       aanganwadiname,
-      manager,
+      worker,
       address,
       sector,
       phoneNumber,
@@ -33,9 +34,9 @@ const CreateAanganwadi = async (req, res) => {
     });
     await user.save();
 
-    res.status(200).send("Aanganwadi Register Successfully");
+    return res.status(200).send("Aanganwadi Register Successfully");
   } catch (error) {
-    res.status(500).send(error);
+    return res.status(500).send(error);
   }
 
   //this fields will come from frontend use User Schema to save this
@@ -48,29 +49,38 @@ const CreateAanganwadi = async (req, res) => {
 
   // } else {
 };
-// }
+
 const updateaanganwadi = async (req, res) => {
-  const updateaanganwadi = await Aanganwadi.findOneAndUpdate(
-    { aanganwadiname: req.params.aanganwadiname },
-    {
-      $set: req.body,
-    },
-    { new: true }
-  );
-  if (updateaanganwadi) {
-    res.status(200).send(updateaanganwadi);
-  } else {
-    res.status(404).json({
-      message: "name not found",
-    });
+  try {
+    const updateaanganwadi = await Aanganwadi.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+    if (updateaanganwadi) {
+      return res.status(200).send(updateaanganwadi);
+    } else {
+      return res.status(404).json({
+        message: "name not found",
+      });
+    }
+  } catch (error) {
+    return res.status(500).send(error);
   }
 };
+
 const deleteaanganwadi = async (req, res) => {
-  const { aanganwadiname } = req.params.aanganwadiname;
-  const exists = await Aanganwadi.findOneAndDelete(aanganwadiname);
-  res.status(200).json({
-    message: "deleted successfully",
-  });
+  try {
+    const { id } = req.params;
+    const exists = await Aanganwadi.findByIdAndDelete(id);
+    return res.status(200).json({
+      message: "deleted successfully",
+    });
+  } catch (error) {
+    return res.status(500).send(error);
+  }
 };
 
 module.exports = {

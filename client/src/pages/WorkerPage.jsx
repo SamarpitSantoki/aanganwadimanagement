@@ -166,8 +166,17 @@ const WorkerPage = ({ heading }) => {
     console.log(res.data);
   };
 
-  const onDeleteUser = (currentUser) => {
-    setUsers(users.filter((i) => i.id !== currentUser.id));
+  const onDeleteUser = async (id) => {
+    try {
+      const res = await axiosFetch({
+        url: "/worker/" + id,
+        method: "delete",
+      });
+      console.log(res);
+      fetchWorkers();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const fetchWorkers = async () => {
@@ -262,7 +271,7 @@ const WorkerPage = ({ heading }) => {
                           <Button
                             variant="danger"
                             title="Delete user"
-                            onClick={() => onDeleteUser(user)}
+                            onClick={() => onDeleteUser(user._id)}
                           >
                             <FaTrashAlt />
                           </Button>
