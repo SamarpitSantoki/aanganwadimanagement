@@ -44,8 +44,9 @@ const deleteresource = async (req, res) => {
 };
 const updatedresource = async (req, res) => {
   try{
-    const updatedresource = await resourceRequest.findByIdAndUpdate(
-      req.params.aanganwadiId,
+    console.log(req.params.aanganwadiId);
+    const updatedresource = await resourceRequest.findOneAndUpdate(
+      {aangalwadi :req.params.aanganwadiId},
       {
         $set: req.body,
       },
