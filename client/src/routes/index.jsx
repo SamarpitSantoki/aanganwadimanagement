@@ -8,23 +8,35 @@ import Login from "../pages/Login";
 import ResourceReqPage from "../pages/ResourceRequest";
 import StockShowPage from "../pages/StockShowPage";
 import WorkerPage from "../pages/WorkerPage";
+import { useSelector } from "react-redux";
+import { getLoginState } from "../store/slices/authSlice";
 
 function index() {
+  const user = useSelector(getLoginState);
+
   return (
     <div>
       <Nav />
       <Header />
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route
-          path="/adminstaff"
-          element={<AdminStaffPage heading={"Admin Staff"} />}
-        />
-        <Route path="/worker" element={<WorkerPage heading={"Workers"} />} />
-        <Route path="/aanganwadi" element={<AanganwadiList />} />
-        <Route path="/stock" element={<StockShowPage />} />
-        <Route path="/wadi/:id" element={<AanganwadiPage />} />
-        <Route path="/requests" element={<ResourceReqPage />} />
+        <Route path="/login" element={<Login />} />
+        {user?.token && (
+          <>
+            <Route
+              path="/adminstaff"
+              element={<AdminStaffPage heading={"Admin Staff"} />}
+            />
+            <Route
+              path="/worker"
+              element={<WorkerPage heading={"Workers"} />}
+            />
+            <Route path="/aanganwadi" element={<AanganwadiList />} />
+            <Route path="/stock" element={<StockShowPage />} />
+            <Route path="/wadi/:id" element={<AanganwadiPage />} />
+            <Route path="/requests" element={<ResourceReqPage />} />
+          </>
+        )}
       </Routes>
     </div>
   );

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.5",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.1",
     "flowbite": "^1.5.3",
@@ -17,6 +18,7 @@
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
+    "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.0",
     "reactstrap": "^9.1.4",
     "rsuite": "^5.18.1",

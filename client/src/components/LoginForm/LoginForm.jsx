@@ -3,10 +3,11 @@ import { Toast, ToastBody, ToastContainer, ToastHeader } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axiosFetch from "../../helpers/axiosfetch";
 import styles from "./LoginForm.module.css";
-
+import { useDispatch } from "react-redux";
+import { login } from "../../store/slices/authSlice";
 const Login = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const [Email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [showToast, setShowToast] = useState(false);
@@ -31,7 +32,7 @@ const Login = () => {
       }
       console.log("sadasd");
       sessionStorage.setItem("user", JSON.stringify(res.data));
-
+      dispatch(login(res.data));
       navigate("/aanganwadi");
       console.log(res);
     } catch (err) {
