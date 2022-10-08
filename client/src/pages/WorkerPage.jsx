@@ -362,9 +362,9 @@ const WorkerPage = ({ heading }) => {
                     }
                   >
                     <option>Select Role</option>
-                    <option value="adminStaff">Admin Staff</option>
-                    <option value="zonalOfficer">Zonal Officer</option>
-                    <option value="manager">Manager</option>
+                    <option value="admin">Admin Staff</option>
+                    <option value="zonal">Zonal Officer</option>
+                    <option value="worker">Worker</option>
                   </Form.Select>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicSector">

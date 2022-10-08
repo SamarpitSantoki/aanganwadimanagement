@@ -33,7 +33,7 @@ const AanganwadiList = () => {
   // const [showCreateBtn,setShowCreateBtn] = useState(true);
   const [editing, setEdit] = useState(false);
   const [rates, setRates] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-
+  const [workerList, setWorkerList] = useState([]);
   const handleClose = () => {
     setShow(false);
   };
@@ -65,7 +65,6 @@ const AanganwadiList = () => {
     console.log(res);
     if (res.status == 200) {
       handleClose();
-      fetchWorkers();
     }
     setAanganwadis([...aanganwadis, { ...newAanganwadi, id }]);
   };
@@ -120,6 +119,19 @@ const AanganwadiList = () => {
     }
   };
 
+  const fetchWorkersList = async () => {
+    try {
+      const res = await axiosFetch({
+        url: "/worker?" + JSON.stringify({ role: "worker" }),
+        method: "get",
+      });
+      setWorkerList(res.data);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const fetchAanganwadis = async () => {
     const res = await axiosFetch({
       url: "/aanganwadi/",
@@ -137,6 +149,7 @@ const AanganwadiList = () => {
 
   useEffect(() => {
     fetchAanganwadis();
+    fetchWorkersList();
   }, []);
 
   return (
@@ -275,7 +288,16 @@ const AanganwadiList = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasiclWorkers">
                   <Form.Label>Worker</Form.Label>
-                  <Form.Control
+                  <Form.Select aria-label="Default select example">
+                    <option>Select Worker</option>
+                    {workerList.map((worker, index) => (
+                      <option key={index} value={worker._id}>
+                        {worker.fName} {worker.lName} - {worker.sector}
+                      </option>
+                    ))}
+                  </Form.Select>
+
+                  {/* <Form.Control
                     type="string"
                     value={newAanganwadi.worker}
                     onChange={(e) =>
@@ -285,7 +307,7 @@ const AanganwadiList = () => {
                       })
                     }
                     placeholder="Enter Workers"
-                  />
+                  /> */}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicSector">
                   <Form.Label>Sector</Form.Label>

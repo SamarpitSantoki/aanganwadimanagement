@@ -7,7 +7,6 @@ const Getresource = async (req, res) => {
   res.status(200).send(exists);
 };
 const Getallresource = async (req, res) => {
-  // const { username } = req.body;
   const exists = await Userresource.find({});
   res.status(200).send(exists);
 };
@@ -40,6 +39,7 @@ const deleteresource = async (req, res) => {
     message:"deleted successfully",
   })
 };
+
 const updatedresource = async (req, res) => {
   try{
     const updatedresource = await Userresource.findByIdAndUpdate(

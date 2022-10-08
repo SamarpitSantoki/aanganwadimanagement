@@ -3,23 +3,26 @@ const Auth = require("../models/auth");
 
 
 const GetWorkerList = async (req, res) => {
-try {
-  const { username } = req.body;
-  const exists = await User.find({});
-  res.status(200).send(exists);
-} catch (error) {
-  res.status(500).send(error);
-}
+  try {
+    const { filter } = req.query;
+    const filters = filter && JSON.parse(filter);
+    console.log("camehere");
+    const exists = await User.find(filters ?? {}).exec();
+    res.status(200).send(exists);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
 const GetWorker = async (req, res) => {
-try {
-  const { name } = req.params;
-  console.log(name);
-  const exists = await User.find({"fName" : {$regex : name}});
-  res.status(200).send(exists);
-} catch (error) {
-  res.status(500).send(error);
-}
+  try {
+    const { name } = req.params;
+
+    console.log(name);
+    const exists = await User.find({ fName: { $regex: name } });
+    res.status(200).send(exists);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
 
 const Register = async (req, res) => {
@@ -40,13 +43,11 @@ const Register = async (req, res) => {
     } = req.body;
     console.log(req.body, "check");
     // check for the required fields to be non empty
-  
+
     const exists = await User.findOne({ email });
     if (exists) {
       res.status(404).send({ message: "User already Found" });
     } else {
-
-
       const user = new User({
         fName,
         lName,
@@ -59,18 +60,18 @@ const Register = async (req, res) => {
         linkedAanganwadi,
       });
       await user.save();
-     
+
       const hash = await bcrypt.hash(phoneNumber, 10);
       const user1 = new Auth({
-        fName,
+        name: fName,
         email,
         password: hash,
-        role
+        role,
       });
+      console.log("heeeeeeee");
       await user1.save();
       res.status(200).send("register worker");
     }
-    
   } catch (error) {
     res.status(500).send(error);
   }
