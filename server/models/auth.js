@@ -16,7 +16,7 @@ const AuthSchema = new Schema({
     required: true
 
   },
-  Role: {
+  role: {
     type: String,
     required: true
   }

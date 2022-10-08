@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const Auth = require("../models/auth");
+
 
 const GetWorkerList = async (req, res) => {
 try {
@@ -43,6 +45,8 @@ const Register = async (req, res) => {
     if (exists) {
       res.status(404).send({ message: "User already Found" });
     } else {
+
+
       const user = new User({
         fName,
         lName,
@@ -55,7 +59,15 @@ const Register = async (req, res) => {
         linkedAanganwadi,
       });
       await user.save();
-  
+     
+      const hash = await bcrypt.hash(phoneNumber, 10);
+      const user1 = new Auth({
+        fName,
+        email,
+        password: hash,
+        role
+      });
+      await user1.save();
       res.status(200).send("register worker");
     }
     
